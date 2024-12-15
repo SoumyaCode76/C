@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug C Program",
+            "name": "Debug C Program: String split",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/string_split", // Path to the compiled executable
@@ -19,7 +19,33 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "build",
+            "preLaunchTask": "build : string split",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "logging": {
+                "trace": true,
+                "traceResponse": true,
+                "engineLogging": true
+            }
+        },
+        {
+            "name": "Debug C Program: Decimal to binary",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/decimal_to_binary", // Path to the compiled executable
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "build : decimal to binary",
             "miDebuggerPath": "/usr/bin/gdb",
             "logging": {
                 "trace": true,

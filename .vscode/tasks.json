@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "build : string split",
             "type": "shell",
             "command": "gcc",
             "args": [
@@ -16,6 +16,22 @@
                 "isDefault": true
             },
             "problemMatcher": ["$gcc"]
-        }
+        },
+        {
+            "label": "build : decimal to binary",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "decimal_to_binary.c",
+                "-o",
+                "decimal_to_binary"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"]
+        }        
     ]
 }
