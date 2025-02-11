@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
-#include <time.h>
+#include <unistd.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
@@ -37,12 +37,57 @@ typedef struct state_tag{
     Operations current_operation_status;
 }tState;
 
-void display_menu(tState *);
-void get_input_from_console(tState *);
-void display_pattern1(tState *);
-void display_pattern2(tState *);
-void display_pattern3(tState *);
-void display_pattern4(tState *);
+void display_menu(tState * self){
+    fseek(stdout, 0, SEEK_SET);
+    printf("=========================Menu===================\n");
+    printf("1: Print pattern 1\n");
+    printf("2: Print pattern 2\n");
+    printf("3. Print pattern 3\n");
+    printf("4. Print pattern 4\n");
+    printf("5: Exit the program\n");
+    printf("================================================\n");
+    self->current_operation_status = DONE;
+}
+void get_input_from_console(tState * self){
+    /*! The input taker shall wait 5 ms every cycle to read a character input  */
+    static uint8_t state_counter = 0;
+    if(state_counter < ){
+        char tmp[10] = {'\0'};
+        fseek(stdout, 0, SEEK_CUR);
+        if(state_counter > 0 && state_counter < 5){
+            tmp[0] = (char)(48 + state_counter);
+        }
+        if(tmp[0] != '\0'){
+            self->data[0] = tmp[0];
+            state_counter = 0;
+            self->current_operation_status = DONE;
+        }
+        else{
+            self->current_operation_status = ONGOING;
+            state_counter++;
+        }
+    }
+    else{
+        state_counter = 0;
+        self->current_operation_status = DONE;        
+    }
+}
+void display_pattern1(tState * self){
+    printf("Pattern 1\n");
+    self->current_operation_status = DONE;
+}
+void display_pattern2(tState * self){
+    printf("Pattern 2\n");
+    self->current_operation_status = DONE;
+}
+void display_pattern3(tState * self){
+    printf("Pattern 3\n");
+    self->current_operation_status = DONE;    
+}
+void display_pattern4(tState * self){
+    printf("Pattern 4\n");
+    self->current_operation_status = DONE;    
+}
 
 typedef void (*state_handler)(tState *);
 state_handler statehandlers[6] = {
@@ -58,22 +103,28 @@ void switch_state(tState * state_variable){
     if(state_variable->next_state != state_variable->present_state){
     state_variable->present_state = state_variable->next_state;
         switch(state_variable->next_state){
+            case DISPLAY_MENU:
+                statehandlers[DISPLAY_MENU](state_variable);
+                break;
             case CHECK_INPUT:
-                get_input_from_console(*state_variable);
+                statehandlers[CHECK_INPUT](state_variable);
                 break;
             case PATTERN1:
-                void display_pattern1(*state_variable);
+                statehandlers[PATTERN1](state_variable);
                 break;
             case PATTERN2:
-                void display_pattern2(*state_variable);
+                statehandlers[PATTERN2](state_variable);
                 break;
             case PATTERN3:
-                void display_pattern3(*state_variable);
+                statehandlers[PATTERN3](state_variable);
                 break;
             case PATTERN4:
-                void display_pattern4(*state_variable);
+                statehandlers[PATTERN4](state_variable);
                 break;                        
         }
+    }
+    else{
+        statehandlers[state_variable->next_state](state_variable);
     }
 }
 
@@ -90,7 +141,7 @@ void determine_state(tState * state_variable){
             }
             case CHECK_INPUT:
             {   
-                uint8_t choice = atoi(state_variable->data);
+                uint8_t choice = atoi(&(state_variable->data[0]));
                 switch(choice){
                     case 1:
                         state_variable->next_state = PATTERN1;
@@ -104,31 +155,39 @@ void determine_state(tState * state_variable){
                     case 4:
                         state_variable->next_state = PATTERN4;
                         break;
+                    case 5:
+                        printf("Goodbye!\n");
+                        break;
+                        exit(EXIT_SUCCESS);
                     default:
                         printf("Wrong choice entered! Please try again!\n");
                         state_variable->next_state = DISPLAY_MENU;
                 }
                 break;
             }
-            default:
+            case PATTERN1:
+            case PATTERN2:
+            case PATTERN3:
+            case PATTERN4:
                 state_variable->next_state = DISPLAY_MENU;
+                break;
         }
         state_variable->current_operation_status = INIT;
     }
 }
 
-void sm_timer(bool stop_timer){
-    if(stop_timer == false){
-        sleep(1);   /*! State machine clocking frequency: 1 kHz  */
-        stop_timer = true;
+void sm_timer(bool * stop_timer){
+    if(*stop_timer == false){
+        sleep(1);   /*! State machine clocking frequency: 1 Hz  */
+        *stop_timer = true;
     }
 }
 
-void sm_main(tState * self, bool periodic_scheduler_state){
-    if(periodic_scheduler_state == true){
+void sm_main(tState * self, bool * periodic_scheduler_state){
+    if(*periodic_scheduler_state == true){
         determine_state(self);
         switch_state(self);
-        periodic_scheduler_state = false;
+        *periodic_scheduler_state = false;
     }
 }
 
@@ -140,11 +199,11 @@ int main(void){
         .next_state = DISPLAY_MENU
     };
 
-    bool periodic_scheduler_state = false;
+    bool periodic_scheduler_state = true;
 
     while(true){
-        sm_main(&StateObj, periodic_scheduler_state);
-        sm_timer(periodic_scheduler_state); /*! State machine wait timer  */
+        sm_main(&StateObj, &periodic_scheduler_state);
+        sm_timer(&periodic_scheduler_state); /*! State machine wait timer  */
     }
 
 }
