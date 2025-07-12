@@ -1,0 +1,14 @@
+Goal of the work: Simulate the work on a real-time micro-controller
+************************
+Rough: I have two battery cells, I connect it through MOSFET switches, In this case, the switch matrix is the actuator. The switching signals are the actuating signals. The load is a simple potentiometer, which is actually a variable load resistor. The load voltage to be sensed through an ADC, and fed to the Controller. The Controller must have the load voltage signal as input, with option to allow the user configure the reference voltage. For this simulation, let the input channel be UART. The reference voltage is to be compared with the load voltage, and accordingly, the desired switching signals to be produced by the Controller. It should be a real-time system, wherein the Controller decides in which circuit pattern the input battery cells must remain connected for as long the desired load voltage is required.
+
+The battery cells can be simulated using the FPU of the uC, or connected through wires. The closed-loop system would be:
+
+----------------		-----------------
+| Voltage	|		| Decide the	|
+| Compare	|	-->	| switching     |    --> Batteries	
+|		|		|  pattern      |
+----------------               -----------------
+
+Is there a way to reverse the flow, create a differential current profile?
+========================
