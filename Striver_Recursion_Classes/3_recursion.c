@@ -22,8 +22,8 @@ int main(uint32_t argc, int8_t * argv[])
     else
     {
         printf("Usage: Enter the number of times to print the name as the first argument.\n Enter the name to print as the second argument\n");
+        errno = EINVAL;
         perror("Invalid number of arguments");
-        return -1;
     }
 }
 
