@@ -3,7 +3,7 @@
 int X[] = { 12, -5, 7, -20, 3, -1, 18, -9, 0, 4 };
 
 void merge_sort_array(int * X, unsigned int low, unsigned int high);
-void sort_part_arrays(int * X, unsigned low, unsigned high);
+void sort_part_arrays(int * X, unsigned int low, unsigned int high);
 
 int main(void)
 {
@@ -40,7 +40,7 @@ void merge_sort_array(int * X, unsigned int low, unsigned int high)
     }
 }
 
-void sort_part_arrays(int * X, unsigned low, unsigned high)
+void sort_part_arrays(int * X, unsigned int low, unsigned int high)
 {
     for(int i = low; i <= high; i++)
     {
