@@ -82,9 +82,9 @@ int memory_copy(void * dst, const void * src, unsigned int length)
                 count++;
             }
             /* Reverse the destination array */
-            reverse_array((void *)pDst, 0, length - address_difference);
-            reverse_array((void *)pDst, length - address_difference + 1, length - 1);
-            reverse_array((void *)pDst, 0, length);
+            reverse_array((void *)pDst, 0, length - address_difference - 1);
+            reverse_array((void *)pDst, length - address_difference, length - 1);
+            reverse_array((void *)pDst, 0, length - 1);
         }
     }
     return count;    
