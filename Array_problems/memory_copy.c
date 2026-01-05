@@ -10,26 +10,22 @@ void reverse_array(void * pArr, unsigned int start, unsigned int end);
 
 int main(void)
 {
-    unsigned int src_size = 10, dst_size = 10;
+    unsigned int src_size = 5, dst_size = 10;
+    int diff = -3;
     int * Xsrc = (int *)calloc(src_size, sizeof(int));
     int * Xdst = (int *)calloc(dst_size, sizeof(int));
 
     srand(time(NULL));
     for(int i = 0; i < src_size; i++)
     {
-        Xsrc[i] = i;
+        Xsrc[i] = rand() % 10;
     }
     printf("Source array before memory copy:\n");
     for(int i = 0; i < src_size; i++)
     {
         printf("Xsrc[%d] = %d\n", i, Xsrc[i]);
     }
-    Xdst = Xsrc + 2;
-    printf("Destination array before memory copy:\n");
-    for(int i = 0; i < dst_size; i++)
-    {
-        printf("Xdst[%d] = %d\n", i, Xdst[i]);
-    }    
+    Xdst = Xsrc + diff;
     int bytes_copied = memory_copy((void *)Xdst, (const void *)Xsrc, dst_size * sizeof(Xdst[0]));
     char * s = (bytes_copied >= 0) ? "Number of bytes copied: " : "Error: Memory copy failed: ";    
     printf("%s %d\n", s, bytes_copied);
@@ -78,13 +74,29 @@ int memory_copy(void * dst, const void * src, unsigned int length)
         {
             for(int i = length - address_difference, j = 0; i < length; i++, j++)
             {
-                pDst[i] = pSrc[j];
+                if(pDst < pSrc)
+                {
+                    pDst[j] = pSrc[i];
+                }
+                else
+                {
+                    pDst[i] = pSrc[j];                    
+                }
                 count++;
             }
             /* Reverse the destination array */
-            reverse_array((void *)pDst, 0, length - address_difference - 1);
-            reverse_array((void *)pDst, length - address_difference, length - 1);
-            reverse_array((void *)pDst, 0, length - 1);
+            if(pDst < pSrc)
+            {
+                reverse_array((void *)pDst, 0, address_difference - 1);
+                reverse_array((void *)pDst, address_difference, length - 1);
+                reverse_array((void *)pDst, 0, length - 1);   
+            }
+            else
+            {
+                reverse_array((void *)pDst, 0, length - address_difference - 1);
+                reverse_array((void *)pDst, length - address_difference, length - 1);
+                reverse_array((void *)pDst, 0, length - 1);                
+            }
         }
     }
     return count;    
