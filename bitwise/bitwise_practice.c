@@ -63,15 +63,43 @@ uint32_t reverse_bits(uint32_t num)
 	uint32_t reversed = 0;
 	while(num)
 	{
-		reversed = (reversed << 1) | (num & 1);
-		num >>= 1;
+		/* 
+			* 11011 => 0
+			* 01101 => 10
+			* 00110 => 110
+			* 00011 => 1100
+			* 00001 => 11010
+			* 00000 => 11011
+		*/
+		reversed <<= 0x1;
+		reversed |= (num & 0x1);
+		num >>= 0x1;
 	}
 	return reversed;
 }
 // bit manipulation
 void manipulate_bits(uint32_t num, uint32_t *out, operation op)
 {
-	return;
+	switch(op)
+	{
+		case CHECK:
+			for(uint8_t i = 0; i < sizeof(num) * sizeof(uint8_t); i++)
+			{
+				uint8_t bit = (num >> i) & 1;
+				*out |= (bit << i);
+			}
+			break;
+		case SET:
+		case CLEAR:
+		case TOGGLE:
+			*out ^= 0xFFFFFFFF;
+			break;
+		case RETURN:
+			*out = 0;
+			break;
+		default:
+			printf("Wrong manipulation choice\n");
+	}
 }
 
 int main(int argc, char * argv[])
@@ -101,7 +129,7 @@ int main(int argc, char * argv[])
 			break;
 			case REVERSE_BITS:
 			{
-				printf("Reversed bits number of %d: %d\n", num, reverse_bits(num));
+				printf("Reversed bits number of 0x%02X: 0x%02X\n", num, reverse_bits(num));
 			}
 			break;
 			case MANIPULATE_BITS:
