@@ -1,0 +1,1886 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>STRUCT_UNION_PROBLEMS.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="struct-union-and-memory-layout-for-embedded-c-interview">Struct, Union, and Memory Layout for Embedded C Interview</h1>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#struct-problems">Struct Problems</a></li>
+<li><a href="#union-problems">Union Problems</a></li>
+<li><a href="#memory-layout--alignment">Memory Layout &amp; Alignment</a></li>
+<li><a href="#size-calculation-without-sizeof">Size Calculation Without sizeof</a></li>
+<li><a href="#bit-fields">Bit-Fields</a></li>
+<li><a href="#interview-qa">Interview Q&amp;A</a></li>
+<li><a href="#advanced-problems">Advanced Problems</a></li>
+<li><a href="#common-mistakes">Common Mistakes</a></li>
+<li><a href="#tips--tricks">Tips &amp; Tricks</a></li>
+</ol>
+<hr>
+<h2 id="struct-problems">Struct Problems</h2>
+<h3 id="problem-1-basic-struct-definition-and-access">Problem 1: Basic Struct Definition and Access</h3>
+<p><strong>Goal</strong>: Define struct and access members<br>
+<strong>Input</strong>: Structure data<br>
+<strong>Output</strong>: Demonstrate accessing members</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> id;
+    <span class="hljs-keyword">char</span> name[<span class="hljs-number">50</span>];
+    <span class="hljs-keyword">float</span> salary;
+} Employee;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_1</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Create employee instance</span>
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Initialize all members</span>
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Print all members</span>
+    <span class="hljs-comment">// Question: How much memory does Employee take?</span>
+}
+</div></code></pre>
+<p><strong>Key Points</strong>:</p>
+<ul>
+<li>Struct groups related data</li>
+<li>Members stored sequentially in memory</li>
+<li>Can have padding between members</li>
+</ul>
+<hr>
+<h3 id="problem-2-nested-structures">Problem 2: Nested Structures</h3>
+<p><strong>Goal</strong>: Use struct within struct<br>
+<strong>Input</strong>: Nested data structure<br>
+<strong>Output</strong>: Access nested members</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> day;
+    <span class="hljs-keyword">int</span> month;
+    <span class="hljs-keyword">int</span> year;
+} Date;
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> id;
+    <span class="hljs-keyword">char</span> name[<span class="hljs-number">50</span>];
+    Date joining_date;
+} Employee;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_2</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Create employee with nested date</span>
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Access nested members: emp.joining_date.day</span>
+    <span class="hljs-comment">// Question: Why is nesting useful?</span>
+}
+</div></code></pre>
+<p><strong>Memory Layout</strong>:</p>
+<pre class="hljs"><code><div>Employee struct:
+├── id (4 bytes)
+├── name[50] (50 bytes)
+└── Date joining_date (12 bytes if no padding)
+Total: varies due to alignment
+</div></code></pre>
+<hr>
+<h3 id="problem-3-array-of-structures">Problem 3: Array of Structures</h3>
+<p><strong>Goal</strong>: Work with multiple structures<br>
+<strong>Input</strong>: Array of structs<br>
+<strong>Output</strong>: Process array</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> id;
+    <span class="hljs-keyword">int</span> age;
+    <span class="hljs-keyword">float</span> gpa;
+} Student;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_3</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Create array of 10 students</span>
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Calculate average GPA</span>
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Find oldest student</span>
+    <span class="hljs-comment">// Question: Memory layout of array?</span>
+}
+</div></code></pre>
+<p><strong>Common Task</strong>: Sorting array of structs</p>
+<hr>
+<h3 id="problem-4-struct-pointers">Problem 4: Struct Pointers</h3>
+<p><strong>Goal</strong>: Use pointers with structs<br>
+<strong>Input</strong>: Pointer to struct<br>
+<strong>Output</strong>: Modify through pointer</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> x;
+    <span class="hljs-keyword">int</span> y;
+} Point;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">update_point</span><span class="hljs-params">(Point *p, <span class="hljs-keyword">int</span> new_x, <span class="hljs-keyword">int</span> new_y)</span> </span>{
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Update point through pointer</span>
+    <span class="hljs-comment">// Use (*p).x = new_x  OR  p-&gt;x = new_x</span>
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_4</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Create point on heap</span>
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Pass pointer to function</span>
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Verify changes</span>
+}
+</div></code></pre>
+<p><strong>Key Operators</strong>:</p>
+<ul>
+<li><code>(*p).member</code> - dereference then access</li>
+<li><code>p-&gt;member</code> - arrow operator (preferred)</li>
+</ul>
+<hr>
+<h3 id="problem-5-dynamic-struct-allocation">Problem 5: Dynamic Struct Allocation</h3>
+<p><strong>Goal</strong>: Allocate struct on heap<br>
+<strong>Input</strong>: Struct data<br>
+<strong>Output</strong>: Allocated structure</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">char</span> *name;
+    <span class="hljs-keyword">int</span> age;
+    <span class="hljs-keyword">char</span> *email;
+} Person;
+
+<span class="hljs-function">Person* <span class="hljs-title">create_person</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *name, <span class="hljs-keyword">int</span> age, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *email)</span> </span>{
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Allocate Person struct</span>
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Allocate memory for name string</span>
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Allocate memory for email string</span>
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Copy data</span>
+    <span class="hljs-comment">// Question: How many malloc calls needed?</span>
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">free_person</span><span class="hljs-params">(Person *p)</span> </span>{
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Free name, email, then struct</span>
+    <span class="hljs-comment">// Question: What order should we free?</span>
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_5</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Create persons dynamically</span>
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Work with them</span>
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Free properly</span>
+}
+</div></code></pre>
+<hr>
+<h3 id="problem-6-self-referential-struct-linked-list">Problem 6: Self-Referential Struct (Linked List)</h3>
+<p><strong>Goal</strong>: Create struct that points to itself<br>
+<strong>Input</strong>: Linked list data<br>
+<strong>Output</strong>: Functional linked list</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Node</span> {</span>
+    <span class="hljs-keyword">int</span> data;
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Node</span> *<span class="hljs-title">next</span>;</span>  <span class="hljs-comment">// Self-referential</span>
+} Node;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_6</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Create linked list manually</span>
+    <span class="hljs-comment">// Node 1 (data=10) → Node 2 (data=20) → Node 3 (data=30) → NULL</span>
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Traverse and print</span>
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Find node</span>
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Delete node</span>
+}
+</div></code></pre>
+<p><strong>Key Point</strong>: Forward declaration needed for self-reference</p>
+<hr>
+<h3 id="problem-7-struct-in-array-of-pointers">Problem 7: Struct in Array of Pointers</h3>
+<p><strong>Goal</strong>: Create array of pointers to structs<br>
+<strong>Input</strong>: Multiple struct instances<br>
+<strong>Output</strong>: Array for generic access</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> id;
+    <span class="hljs-keyword">char</span> name[<span class="hljs-number">30</span>];
+} Item;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_7</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Create array of pointers: Item *items[5]</span>
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Allocate each item</span>
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Initialize and use</span>
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Free all items</span>
+}
+</div></code></pre>
+<p><strong>Memory Layout</strong>:</p>
+<pre class="hljs"><code><div>items[5]:        Stack
+├── items[0] ──&gt; Item (on heap)
+├── items[1] ──&gt; Item (on heap)
+├── items[2] ──&gt; Item (on heap)
+├── items[3] ──&gt; Item (on heap)
+└── items[4] ──&gt; Item (on heap)
+</div></code></pre>
+<hr>
+<h3 id="problem-8-typedef-struct-vs-named-struct">Problem 8: Typedef Struct vs Named Struct</h3>
+<p><strong>Goal</strong>: Understand different declaration styles<br>
+<strong>Input</strong>: Various struct declaration methods<br>
+<strong>Output</strong>: Know which to use when</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Style 1: Named struct (old C style)</span>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Employee</span> {</span>
+    <span class="hljs-keyword">int</span> id;
+    <span class="hljs-keyword">char</span> name[<span class="hljs-number">50</span>];
+};
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Employee</span> <span class="hljs-title">e1</span>;</span>
+
+<span class="hljs-comment">// Style 2: typedef struct (modern)</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> id;
+    <span class="hljs-keyword">char</span> name[<span class="hljs-number">50</span>];
+} Employee;
+Employee e2;
+
+<span class="hljs-comment">// Style 3: Named struct with typedef</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Employee</span> {</span>
+    <span class="hljs-keyword">int</span> id;
+    <span class="hljs-keyword">char</span> name[<span class="hljs-number">50</span>];
+} Employee;
+Employee e3;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_8</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Demonstrate all three styles</span>
+    <span class="hljs-comment">// Question: Which is preferred in embedded C?</span>
+}
+</div></code></pre>
+<p><strong>Best Practice</strong>: Use typedef for cleaner code</p>
+<hr>
+<h3 id="problem-9-struct-comparison">Problem 9: Struct Comparison</h3>
+<p><strong>Goal</strong>: Compare entire structs<br>
+<strong>Input</strong>: Two struct instances<br>
+<strong>Output</strong>: Equality result</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> x;
+    <span class="hljs-keyword">int</span> y;
+} Point;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_9</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Compare point1 and point2</span>
+    <span class="hljs-comment">// Method 1: Compare members individually</span>
+    <span class="hljs-keyword">if</span>(p1.x == p2.x &amp;&amp; p1.y == p2.y) { }
+    
+    <span class="hljs-comment">// Method 2: memcmp (caution: padding bytes!)</span>
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Explain why memcmp might fail</span>
+}
+</div></code></pre>
+<p><strong>Pitfall</strong>: memcmp includes padding bytes!</p>
+<hr>
+<h3 id="problem-10-struct-with-function-pointers">Problem 10: Struct with Function Pointers</h3>
+<p><strong>Goal</strong>: Use structs to implement vtables<br>
+<strong>Input</strong>: Structure with function pointers<br>
+<strong>Output</strong>: Polymorphic behavior</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">char</span> name[<span class="hljs-number">30</span>];
+    <span class="hljs-keyword">int</span> (*calculate_area)(<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>);  <span class="hljs-comment">// Function pointer</span>
+    <span class="hljs-keyword">int</span> (*calculate_perimeter)(<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>);
+} Shape;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">rect_area</span><span class="hljs-params">(<span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> w)</span> </span>{ <span class="hljs-keyword">return</span> l * w; }
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">rect_perimeter</span><span class="hljs-params">(<span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> w)</span> </span>{ <span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * (l + w); }
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_10</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Create shape with function pointers</span>
+    Shape <span class="hljs-built_in">rect</span> = {<span class="hljs-string">"Rectangle"</span>, rect_area, rect_perimeter};
+    
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Call through pointers</span>
+    <span class="hljs-keyword">int</span> area = <span class="hljs-built_in">rect</span>.calculate_area(<span class="hljs-number">5</span>, <span class="hljs-number">10</span>);
+}
+</div></code></pre>
+<hr>
+<h2 id="union-problems">Union Problems</h2>
+<h3 id="problem-11-basic-union---memory-sharing">Problem 11: Basic Union - Memory Sharing</h3>
+<p><strong>Goal</strong>: Understand union memory sharing<br>
+<strong>Input</strong>: Union with multiple types<br>
+<strong>Output</strong>: Demonstrate shared memory</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">union</span> {
+    <span class="hljs-keyword">int</span> int_val;
+    <span class="hljs-keyword">float</span> float_val;
+    <span class="hljs-keyword">char</span> char_val;
+} Data;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_11</span><span class="hljs-params">()</span> </span>{
+    Data d;
+    
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Assign to int_val</span>
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Observe what happens to other members</span>
+    <span class="hljs-comment">// Question: Why all members change?</span>
+    
+    <span class="hljs-comment">// Demonstration:</span>
+    d.int_val = <span class="hljs-number">0x12345678</span>;
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"int: 0x%X\n"</span>, d.int_val);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"float: %f\n"</span>, d.float_val);  <span class="hljs-comment">// Garbage!</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"char: %d\n"</span>, d.char_val);    <span class="hljs-comment">// Only LSB</span>
+}
+</div></code></pre>
+<p><strong>Key Concept</strong>: All members share same memory address</p>
+<hr>
+<h3 id="problem-12-union-size-calculation">Problem 12: Union Size Calculation</h3>
+<p><strong>Goal</strong>: Understand union size<br>
+<strong>Input</strong>: Union with different members<br>
+<strong>Output</strong>: Calculate size without sizeof</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">union</span> {
+    <span class="hljs-keyword">int</span> a;           <span class="hljs-comment">// 4 bytes</span>
+    <span class="hljs-keyword">double</span> b;        <span class="hljs-comment">// 8 bytes</span>
+    <span class="hljs-keyword">char</span> c;          <span class="hljs-comment">// 1 byte</span>
+    short d;         <span class="hljs-comment">// 2 bytes</span>
+} MyUnion;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_12</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Predict size</span>
+    <span class="hljs-comment">// Size = size of largest member = 8 bytes</span>
+    
+    <span class="hljs-comment">// Without sizeof:</span>
+    MyUnion u1, u2;
+    <span class="hljs-keyword">int</span> <span class="hljs-built_in">size</span> = (<span class="hljs-keyword">char</span>*)&amp;u2 - (<span class="hljs-keyword">char</span>*)&amp;u1;  <span class="hljs-comment">// Pointer arithmetic</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Union size: %d\n"</span>, <span class="hljs-built_in">size</span>);
+    
+    <span class="hljs-comment">// Or using array:</span>
+    MyUnion arr[<span class="hljs-number">2</span>];
+    <span class="hljs-built_in">size</span> = (<span class="hljs-keyword">char</span>*)&amp;arr[<span class="hljs-number">1</span>] - (<span class="hljs-keyword">char</span>*)&amp;arr[<span class="hljs-number">0</span>];
+}
+</div></code></pre>
+<hr>
+<h3 id="problem-13-union-with-struct---type-punning">Problem 13: Union with Struct - Type Punning</h3>
+<p><strong>Goal</strong>: Use union to interpret data differently<br>
+<strong>Input</strong>: Raw data<br>
+<strong>Output</strong>: Different interpretations</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> r;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> g;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> b;
+} RGB;
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">union</span> {
+    <span class="hljs-keyword">int</span> color;      <span class="hljs-comment">// 32-bit color value</span>
+    RGB components; <span class="hljs-comment">// RGB breakdown</span>
+} Color;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_13</span><span class="hljs-params">()</span> </span>{
+    Color c;
+    c.color = <span class="hljs-number">0xFF00FF</span>;  <span class="hljs-comment">// Magenta</span>
+    
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Access as integer and RGB</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Color: 0x%X\n"</span>, c.color);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"R: %d, G: %d, B: %d\n"</span>, c.components.r, 
+           c.components.g, c.components.b);
+           
+    <span class="hljs-comment">// Question: Endianness issues?</span>
+}
+</div></code></pre>
+<hr>
+<h3 id="problem-14-union-in-struct---communication-protocol">Problem 14: Union in Struct - Communication Protocol</h3>
+<p><strong>Goal</strong>: Use union for different message types<br>
+<strong>Input</strong>: Different message formats<br>
+<strong>Output</strong>: Generic message container</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> command;
+    <span class="hljs-keyword">int</span> data_int;
+    <span class="hljs-keyword">float</span> data_float;
+    <span class="hljs-keyword">char</span> data_char;
+} Message_V1;  <span class="hljs-comment">// Wastes space!</span>
+
+<span class="hljs-comment">// Better approach:</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">union</span> {
+    <span class="hljs-keyword">int</span> int_data;
+    <span class="hljs-keyword">float</span> float_data;
+    <span class="hljs-keyword">char</span> char_data;
+} PayloadData;
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> command;
+    <span class="hljs-keyword">int</span> payload_type;  <span class="hljs-comment">// 0=int, 1=float, 2=char</span>
+    PayloadData payload;
+} Message_V2;  <span class="hljs-comment">// Better!</span>
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_14</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Create messages with different payload types</span>
+    <span class="hljs-comment">// Question: Why is second approach better?</span>
+}
+</div></code></pre>
+<hr>
+<h3 id="problem-15-serial-communication-with-union">Problem 15: Serial Communication with Union</h3>
+<p><strong>Goal</strong>: Read different data types from serial<br>
+<strong>Input</strong>: Byte stream<br>
+<strong>Output</strong>: Interpret as different types</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">union</span> {
+    <span class="hljs-keyword">int</span> integer_value;
+    <span class="hljs-keyword">float</span> float_value;
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+        <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> byte1;
+        <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> byte2;
+        <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> byte3;
+        <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> byte4;
+    } bytes;
+} SerialData;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_15</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// Simulate receiving 4 bytes from serial</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> received[<span class="hljs-number">4</span>] = {<span class="hljs-number">0x01</span>, <span class="hljs-number">0x02</span>, <span class="hljs-number">0x03</span>, <span class="hljs-number">0x04</span>};
+    
+    SerialData data;
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Copy bytes into union</span>
+    <span class="hljs-comment">// memcpy(&amp;data.bytes, received, 4);</span>
+    
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Interpret as different types</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"As int: %d\n"</span>, data.integer_value);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"As float: %f\n"</span>, data.float_value);
+}
+</div></code></pre>
+<hr>
+<h3 id="problem-16-union-endianness-detection">Problem 16: Union Endianness Detection</h3>
+<p><strong>Goal</strong>: Check system endianness<br>
+<strong>Input</strong>: None<br>
+<strong>Output</strong>: Print endianness</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">union</span> {
+    <span class="hljs-keyword">int</span> int_val;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> bytes[<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">int</span>)];
+} EndianCheck;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_16</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Determine endianness using union</span>
+    EndianCheck check;
+    check.int_val = <span class="hljs-number">0x01020304</span>;
+    
+    <span class="hljs-keyword">if</span>(check.bytes[<span class="hljs-number">0</span>] == <span class="hljs-number">0x01</span>) {
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Big-endian\n"</span>);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(check.bytes[<span class="hljs-number">0</span>] == <span class="hljs-number">0x04</span>) {
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Little-endian\n"</span>);
+    }
+}
+</div></code></pre>
+<hr>
+<h2 id="memory-layout--alignment">Memory Layout &amp; Alignment</h2>
+<h3 id="problem-17-struct-padding-and-alignment">Problem 17: Struct Padding and Alignment</h3>
+<p><strong>Goal</strong>: Understand automatic padding<br>
+<strong>Input</strong>: Struct with different member sizes<br>
+<strong>Output</strong>: Identify padding</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">char</span> a;      <span class="hljs-comment">// 1 byte, offset 0</span>
+    <span class="hljs-keyword">int</span> b;       <span class="hljs-comment">// 4 bytes, offset 4 (padded!)</span>
+    <span class="hljs-keyword">char</span> c;      <span class="hljs-comment">// 1 byte, offset 8</span>
+} PaddedStruct;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_17</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Calculate offsets of members</span>
+    <span class="hljs-comment">// Method 1: Using address arithmetic</span>
+    PaddedStruct s;
+    
+    <span class="hljs-keyword">int</span> offset_a = (<span class="hljs-keyword">char</span>*)&amp;s.a - (<span class="hljs-keyword">char</span>*)&amp;s;      <span class="hljs-comment">// 0</span>
+    <span class="hljs-keyword">int</span> offset_b = (<span class="hljs-keyword">char</span>*)&amp;s.b - (<span class="hljs-keyword">char</span>*)&amp;s;      <span class="hljs-comment">// 4</span>
+    <span class="hljs-keyword">int</span> offset_c = (<span class="hljs-keyword">char</span>*)&amp;s.c - (<span class="hljs-keyword">char</span>*)&amp;s;      <span class="hljs-comment">// 8</span>
+    
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Offset of a: %d\n"</span>, offset_a);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Offset of b: %d\n"</span>, offset_b);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Offset of c: %d\n"</span>, offset_c);
+    
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Calculate total size</span>
+}
+</div></code></pre>
+<p><strong>Padding Rules</strong>:</p>
+<ul>
+<li>Struct alignment = alignment of largest member</li>
+<li>Members aligned to their own size or alignment requirement</li>
+<li>Padding added between members as needed</li>
+</ul>
+<hr>
+<h3 id="problem-18-minimize-struct-size-by-reordering">Problem 18: Minimize Struct Size by Reordering</h3>
+<p><strong>Goal</strong>: Reduce memory usage through member reordering<br>
+<strong>Input</strong>: Inefficiently ordered struct<br>
+<strong>Output</strong>: Optimized struct</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Inefficient arrangement</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">char</span> a;      <span class="hljs-comment">// 1 byte, offset 0</span>
+    <span class="hljs-keyword">int</span> b;       <span class="hljs-comment">// 4 bytes, offset 4</span>
+    <span class="hljs-keyword">char</span> c;      <span class="hljs-comment">// 1 byte, offset 8</span>
+    <span class="hljs-keyword">int</span> d;       <span class="hljs-comment">// 4 bytes, offset 12</span>
+} Bad;
+
+<span class="hljs-comment">// Optimized arrangement</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> b;       <span class="hljs-comment">// 4 bytes, offset 0</span>
+    <span class="hljs-keyword">int</span> d;       <span class="hljs-comment">// 4 bytes, offset 4</span>
+    <span class="hljs-keyword">char</span> a;      <span class="hljs-comment">// 1 byte, offset 8</span>
+    <span class="hljs-keyword">char</span> c;      <span class="hljs-comment">// 1 byte, offset 9</span>
+} Good;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_18</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Compare sizes of both structs</span>
+    <span class="hljs-comment">// Bad: 16 bytes, Good: 12 bytes</span>
+    
+    <span class="hljs-comment">// Principle: Largest members first</span>
+}
+</div></code></pre>
+<hr>
+<h3 id="problem-19-packed-struct-no-padding">Problem 19: Packed Struct (No Padding)</h3>
+<p><strong>Goal</strong>: Create struct without padding<br>
+<strong>Input</strong>: Need exact memory layout<br>
+<strong>Output</strong>: Packed structure</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Compiler-specific syntax!</span>
+
+<span class="hljs-comment">// GCC/Clang</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> __<span class="hljs-title">attribute__</span>((<span class="hljs-title">packed</span>)) {</span>
+    <span class="hljs-keyword">char</span> a;
+    <span class="hljs-keyword">int</span> b;
+    <span class="hljs-keyword">char</span> c;
+} PackedStruct;
+
+<span class="hljs-comment">// MSVC</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> pack(push, 1)</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">char</span> a;
+    <span class="hljs-keyword">int</span> b;
+    <span class="hljs-keyword">char</span> c;
+} PackedStruct;
+<span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> pack(pop)</span>
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_19</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// PackedStruct: 1 + 4 + 1 = 6 bytes (no padding)</span>
+    <span class="hljs-comment">// Normal struct: 12 bytes (with padding)</span>
+    
+    <span class="hljs-comment">// Question: Why avoid packing?</span>
+    <span class="hljs-comment">// Answer: Slower access, requires special handling</span>
+}
+</div></code></pre>
+<hr>
+<h3 id="problem-20-alignment-requirements">Problem 20: Alignment Requirements</h3>
+<p><strong>Goal</strong>: Understand alignment rules<br>
+<strong>Input</strong>: Different data types<br>
+<strong>Output</strong>: Calculate alignment needs</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">char</span> a;          <span class="hljs-comment">// Alignment: 1</span>
+    short b;         <span class="hljs-comment">// Alignment: 2</span>
+    <span class="hljs-keyword">int</span> c;           <span class="hljs-comment">// Alignment: 4</span>
+    <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> d;     <span class="hljs-comment">// Alignment: 8</span>
+    <span class="hljs-keyword">float</span> e;         <span class="hljs-comment">// Alignment: 4</span>
+    <span class="hljs-keyword">double</span> f;        <span class="hljs-comment">// Alignment: 8</span>
+} AlignmentTest;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_20</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Calculate alignment of each member</span>
+    
+    <span class="hljs-comment">// Method: Use address arithmetic</span>
+    AlignmentTest t;
+    
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Offset of a: %d\n"</span>, (<span class="hljs-keyword">char</span>*)&amp;t.a - (<span class="hljs-keyword">char</span>*)&amp;t);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Offset of b: %d\n"</span>, (<span class="hljs-keyword">char</span>*)&amp;t.b - (<span class="hljs-keyword">char</span>*)&amp;t);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Offset of c: %d\n"</span>, (<span class="hljs-keyword">char</span>*)&amp;t.c - (<span class="hljs-keyword">char</span>*)&amp;t);
+    <span class="hljs-comment">// etc.</span>
+    
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Total size: %d\n"</span>, 
+        (<span class="hljs-keyword">char</span>*)(&amp;t+<span class="hljs-number">1</span>) - (<span class="hljs-keyword">char</span>*)(&amp;t));
+}
+</div></code></pre>
+<hr>
+<h2 id="size-calculation-without-sizeof">Size Calculation Without sizeof</h2>
+<h3 id="problem-21-calculate-size-using-array-hack">Problem 21: Calculate Size Using Array Hack</h3>
+<p><strong>Goal</strong>: Find size of type without sizeof<br>
+<strong>Input</strong>: Any type<br>
+<strong>Output</strong>: Size in bytes</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_21</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// Classic array hack</span>
+    <span class="hljs-keyword">int</span> <span class="hljs-built_in">size</span> = (<span class="hljs-keyword">char</span>*)(&amp;arr[<span class="hljs-number">1</span>]) - (<span class="hljs-keyword">char</span>*)(&amp;arr[<span class="hljs-number">0</span>]);
+    
+    <span class="hljs-comment">// Example:</span>
+    <span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+        <span class="hljs-keyword">int</span> x;
+        <span class="hljs-keyword">int</span> y;
+    } Point;
+    
+    Point arr[<span class="hljs-number">2</span>];
+    <span class="hljs-keyword">int</span> point_size = (<span class="hljs-keyword">char</span>*)(&amp;arr[<span class="hljs-number">1</span>]) - (<span class="hljs-keyword">char</span>*)(&amp;arr[<span class="hljs-number">0</span>]);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Size of Point: %d\n"</span>, point_size);  <span class="hljs-comment">// 8</span>
+}
+</div></code></pre>
+<hr>
+<h3 id="problem-22-calculate-member-offset">Problem 22: Calculate Member Offset</h3>
+<p><strong>Goal</strong>: Find offset of struct member without sizeof<br>
+<strong>Input</strong>: Struct type<br>
+<strong>Output</strong>: Offset of specific member</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> a;      <span class="hljs-comment">// Offset 0</span>
+    <span class="hljs-keyword">int</span> b;      <span class="hljs-comment">// Offset 4</span>
+    <span class="hljs-keyword">char</span> c;     <span class="hljs-comment">// Offset 8</span>
+} MyStruct;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_22</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// Method 1: Create instance and use addresses</span>
+    MyStruct s;
+    <span class="hljs-keyword">int</span> offset_b = (<span class="hljs-keyword">char</span>*)&amp;s.b - (<span class="hljs-keyword">char</span>*)&amp;s;
+    <span class="hljs-keyword">int</span> offset_c = (<span class="hljs-keyword">char</span>*)&amp;s.c - (<span class="hljs-keyword">char</span>*)&amp;s;
+    
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Offset of b: %d\n"</span>, offset_b);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Offset of c: %d\n"</span>, offset_c);
+}
+</div></code></pre>
+<hr>
+<h3 id="problem-23-calculate-struct-size-using-null-pointer">Problem 23: Calculate Struct Size Using Null Pointer</h3>
+<p><strong>Goal</strong>: Find struct size using compiler trick<br>
+<strong>Input</strong>: Struct type<br>
+<strong>Output</strong>: Size without sizeof</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_23</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// Clever trick using null pointer</span>
+    
+    <span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+        <span class="hljs-keyword">int</span> a;
+        <span class="hljs-keyword">int</span> b;
+        <span class="hljs-keyword">char</span> c;
+    } MyStruct;
+    
+    <span class="hljs-comment">// Cast null pointer to struct pointer</span>
+    <span class="hljs-comment">// Then access next element</span>
+    <span class="hljs-keyword">int</span> <span class="hljs-built_in">size</span> = (<span class="hljs-keyword">int</span>)(&amp;((MyStruct*)<span class="hljs-number">0</span>)[<span class="hljs-number">1</span>]);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Size of MyStruct: %d\n"</span>, <span class="hljs-built_in">size</span>);
+}
+</div></code></pre>
+<hr>
+<h3 id="problem-24-calculate-union-size">Problem 24: Calculate Union Size</h3>
+<p><strong>Goal</strong>: Find union size without sizeof<br>
+<strong>Input</strong>: Union type<br>
+<strong>Output</strong>: Size in bytes</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_24</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">typedef</span> <span class="hljs-keyword">union</span> {
+        <span class="hljs-keyword">int</span> a;
+        <span class="hljs-keyword">double</span> b;
+        <span class="hljs-keyword">char</span> c;
+    } MyUnion;
+    
+    <span class="hljs-comment">// Create array to find size</span>
+    MyUnion arr[<span class="hljs-number">2</span>];
+    <span class="hljs-keyword">int</span> <span class="hljs-built_in">size</span> = (<span class="hljs-keyword">char</span>*)&amp;arr[<span class="hljs-number">1</span>] - (<span class="hljs-keyword">char</span>*)&amp;arr[<span class="hljs-number">0</span>];
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Union size: %d\n"</span>, <span class="hljs-built_in">size</span>);  <span class="hljs-comment">// Size of largest member</span>
+}
+</div></code></pre>
+<hr>
+<h3 id="problem-25-estimate-size-without-creating-instance">Problem 25: Estimate Size Without Creating Instance</h3>
+<p><strong>Goal</strong>: Calculate size before runtime<br>
+<strong>Input</strong>: Struct definition<br>
+<strong>Output</strong>: Calculated size</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_25</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// Use offsetof-like calculations</span>
+    
+    <span class="hljs-comment">// For simple types:</span>
+    <span class="hljs-comment">// int: 4 bytes</span>
+    <span class="hljs-comment">// char: 1 byte</span>
+    <span class="hljs-comment">// float: 4 bytes</span>
+    <span class="hljs-comment">// double: 8 bytes</span>
+    
+    <span class="hljs-comment">// For struct with int, int, char:</span>
+    <span class="hljs-comment">// int (4) + int (4) + char (1 + 3 padding) = 12 bytes</span>
+    
+    <span class="hljs-comment">// Alignment rules:</span>
+    <span class="hljs-comment">// 1. Each type aligns to its size</span>
+    <span class="hljs-comment">// 2. Struct aligns to its largest member</span>
+    <span class="hljs-comment">// 3. Add padding as needed</span>
+}
+</div></code></pre>
+<hr>
+<h2 id="bit-fields">Bit-Fields</h2>
+<h3 id="problem-26-basic-bit-field">Problem 26: Basic Bit-Field</h3>
+<p><strong>Goal</strong>: Pack multiple members into single byte<br>
+<strong>Input</strong>: Limited memory requirement<br>
+<strong>Output</strong>: Bit-field struct</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> flag1 : <span class="hljs-number">1</span>;    <span class="hljs-comment">// 1 bit</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> flag2 : <span class="hljs-number">1</span>;    <span class="hljs-comment">// 1 bit</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> flag3 : <span class="hljs-number">1</span>;    <span class="hljs-comment">// 1 bit</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> value : <span class="hljs-number">5</span>;    <span class="hljs-comment">// 5 bits (holds 0-31)</span>
+} BitFlags;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_26</span><span class="hljs-params">()</span> </span>{
+    BitFlags flags = {<span class="hljs-number">0</span>};
+    flags.flag1 = <span class="hljs-number">1</span>;
+    flags.flag2 = <span class="hljs-number">0</span>;
+    flags.flag3 = <span class="hljs-number">1</span>;
+    flags.value = <span class="hljs-number">15</span>;
+    
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Print individual fields</span>
+    <span class="hljs-comment">// Question: Size of BitFlags?</span>
+}
+</div></code></pre>
+<p><strong>Size</strong>: Usually 4 bytes (can't be smaller than int on most systems)</p>
+<hr>
+<h3 id="problem-27-bit-field-in-embedded-device-register">Problem 27: Bit-Field in Embedded Device Register</h3>
+<p><strong>Goal</strong>: Map hardware register using bit-fields<br>
+<strong>Input</strong>: Register layout<br>
+<strong>Output</strong>: Struct representing register</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Hardware register layout:</span>
+<span class="hljs-comment">// Bits 0-2: Mode (3 bits)</span>
+<span class="hljs-comment">// Bits 3-4: Speed (2 bits)</span>
+<span class="hljs-comment">// Bit 5: Enable (1 bit)</span>
+<span class="hljs-comment">// Bits 6-7: Status (2 bits)</span>
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> mode : <span class="hljs-number">3</span>;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> speed : <span class="hljs-number">2</span>;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> enable : <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> status : <span class="hljs-number">2</span>;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> reserved : <span class="hljs-number">0</span>;  <span class="hljs-comment">// Align to byte boundary</span>
+} DeviceControl;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_27</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Map hardware register</span>
+    <span class="hljs-keyword">volatile</span> DeviceControl *reg = (DeviceControl*)<span class="hljs-number">0x40000000</span>;
+    
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Read/write fields</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> current_mode = reg-&gt;mode;
+    reg-&gt;enable = <span class="hljs-number">1</span>;
+}
+</div></code></pre>
+<hr>
+<h3 id="problem-28-bit-field-pitfalls-and-issues">Problem 28: Bit-Field Pitfalls and Issues</h3>
+<p><strong>Goal</strong>: Understand bit-field limitations<br>
+<strong>Input</strong>: Various bit-field scenarios<br>
+<strong>Output</strong>: Identify problems</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> a : <span class="hljs-number">3</span>;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> b : <span class="hljs-number">3</span>;
+} BitStruct;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_28</span><span class="hljs-params">()</span> </span>{
+    BitStruct bs;
+    
+    <span class="hljs-comment">// Pitfall 1: Can't take address of bit-field</span>
+    <span class="hljs-comment">// unsigned int *p = &amp;bs.a;  // COMPILE ERROR!</span>
+    
+    <span class="hljs-comment">// Pitfall 2: Sign extension with signed types</span>
+    <span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+        <span class="hljs-keyword">int</span> a : <span class="hljs-number">3</span>;  <span class="hljs-comment">// DANGEROUS! Could be signed</span>
+    } SignedBits;
+    
+    <span class="hljs-comment">// Pitfall 3: Not portable across compilers</span>
+    <span class="hljs-comment">// Bit order varies (int vs unsigned)</span>
+    <span class="hljs-comment">// Alignment not guaranteed</span>
+    
+    <span class="hljs-comment">// Pitfall 4: Performance</span>
+    <span class="hljs-comment">// Bit-fields require masking/shifting</span>
+    <span class="hljs-comment">// Slower than byte operations</span>
+}
+</div></code></pre>
+<hr>
+<h3 id="problem-29-count-bits-in-bit-field">Problem 29: Count Bits in Bit-Field</h3>
+<p><strong>Goal</strong>: Pack maximum info in minimum space<br>
+<strong>Input</strong>: Multiple flags and values<br>
+<strong>Output</strong>: Optimized bit-field</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Inefficient (wastes memory)</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">char</span> flag1;
+    <span class="hljs-keyword">char</span> flag2;
+    <span class="hljs-keyword">char</span> flag3;
+    <span class="hljs-keyword">int</span> mode;
+} Inefficient;  <span class="hljs-comment">// 7 bytes + padding = 12 bytes</span>
+
+<span class="hljs-comment">// Optimized with bit-fields</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> flag1 : <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> flag2 : <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> flag3 : <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> mode : <span class="hljs-number">5</span>;  <span class="hljs-comment">// 2^5 = 32 modes</span>
+} Optimized;  <span class="hljs-comment">// 4 bytes</span>
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_29</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Inefficient: %zu bytes\n"</span>, <span class="hljs-keyword">sizeof</span>(Inefficient));
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Optimized: %zu bytes\n"</span>, <span class="hljs-keyword">sizeof</span>(Optimized));
+}
+</div></code></pre>
+<hr>
+<h3 id="problem-30-network-packet-header-with-bit-fields">Problem 30: Network Packet Header with Bit-Fields</h3>
+<p><strong>Goal</strong>: Model network packet header<br>
+<strong>Input</strong>: Packet structure<br>
+<strong>Output</strong>: Efficient header representation</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Network packet header</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> version : <span class="hljs-number">4</span>;      <span class="hljs-comment">// 0-15</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> ihl : <span class="hljs-number">4</span>;          <span class="hljs-comment">// 0-15 (header length)</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> dscp : <span class="hljs-number">6</span>;         <span class="hljs-comment">// 0-63 (differentiated services)</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> ecn : <span class="hljs-number">2</span>;          <span class="hljs-comment">// 0-3 (explicit congestion notif)</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> total_length : <span class="hljs-number">16</span>; <span class="hljs-comment">// 0-65535</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> identification : <span class="hljs-number">16</span>;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> flags : <span class="hljs-number">3</span>;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> fragment_offset : <span class="hljs-number">13</span>;
+} IPv4Header;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_30</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Parse incoming packet</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> packet[<span class="hljs-number">20</span>];
+    
+    <span class="hljs-comment">// Note: Endianness and alignment very tricky!</span>
+    <span class="hljs-comment">// Bit-fields usually NOT recommended for network protocols</span>
+    
+    <span class="hljs-comment">// Better: use bitmasks and bit operations</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> version = (packet[<span class="hljs-number">0</span>] &gt;&gt; <span class="hljs-number">4</span>) &amp; <span class="hljs-number">0x0F</span>;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> ihl = packet[<span class="hljs-number">0</span>] &amp; <span class="hljs-number">0x0F</span>;
+}
+</div></code></pre>
+<hr>
+<h2 id="interview-qa">Interview Q&amp;A</h2>
+<h3 id="q1-whats-the-difference-between-struct-and-union">Q1: What's the difference between struct and union?</h3>
+<p><strong>Answer</strong>:</p>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Student</span> {</span>
+    <span class="hljs-keyword">int</span> id;       <span class="hljs-comment">// 4 bytes</span>
+    <span class="hljs-keyword">char</span> grade;   <span class="hljs-comment">// 1 byte</span>
+    <span class="hljs-keyword">float</span> gpa;    <span class="hljs-comment">// 4 bytes</span>
+};              <span class="hljs-comment">// Total: 12 bytes (with padding)</span>
+
+<span class="hljs-keyword">union</span> Value {
+    <span class="hljs-keyword">int</span> i;        <span class="hljs-comment">// 4 bytes</span>
+    <span class="hljs-keyword">float</span> f;      <span class="hljs-comment">// 4 bytes</span>
+    <span class="hljs-keyword">char</span> c;       <span class="hljs-comment">// 1 byte</span>
+};              <span class="hljs-comment">// Total: 4 bytes (largest member)</span>
+</div></code></pre>
+<p><strong>Struct</strong>: Members exist simultaneously, each has own memory
+<strong>Union</strong>: Members share same memory space, only one at a time</p>
+<hr>
+<h3 id="q2-whats-memory-padding-and-why-does-it-exist">Q2: What's memory padding and why does it exist?</h3>
+<p><strong>Answer</strong>: Processor expects data at addresses aligned to their size</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">char</span> a;      <span class="hljs-comment">// Address: 0x0000</span>
+    <span class="hljs-comment">// Padding: 0x0001, 0x0002, 0x0003</span>
+    <span class="hljs-keyword">int</span> b;       <span class="hljs-comment">// Address: 0x0004 (must be 4-byte aligned)</span>
+    <span class="hljs-keyword">char</span> c;      <span class="hljs-comment">// Address: 0x0008</span>
+} PaddedStruct;
+</div></code></pre>
+<p><strong>Why</strong>:</p>
+<ul>
+<li>Some processors can't access unaligned memory</li>
+<li>Aligned access = faster performance</li>
+<li>Compiler adds padding automatically</li>
+</ul>
+<hr>
+<h3 id="q3-how-do-you-calculate-struct-size-without-sizeof">Q3: How do you calculate struct size without sizeof?</h3>
+<p><strong>Answer</strong>:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> x;
+    <span class="hljs-keyword">char</span> y;
+} Point;
+
+<span class="hljs-comment">// Method 1: Array trick</span>
+Point arr[<span class="hljs-number">2</span>];
+<span class="hljs-keyword">int</span> <span class="hljs-built_in">size</span> = (<span class="hljs-keyword">char</span>*)&amp;arr[<span class="hljs-number">1</span>] - (<span class="hljs-keyword">char</span>*)&amp;arr[<span class="hljs-number">0</span>];
+
+<span class="hljs-comment">// Method 2: Null pointer trick</span>
+<span class="hljs-keyword">int</span> <span class="hljs-built_in">size</span> = (<span class="hljs-keyword">int</span>)(&amp;((Point*)<span class="hljs-number">0</span>)[<span class="hljs-number">1</span>]);
+
+<span class="hljs-comment">// Method 3: Casting and pointer arithmetic</span>
+<span class="hljs-keyword">int</span> <span class="hljs-built_in">size</span> = (<span class="hljs-keyword">char</span>*)(&amp;<span class="hljs-built_in">point</span> + <span class="hljs-number">1</span>) - (<span class="hljs-keyword">char</span>*)(&amp;<span class="hljs-built_in">point</span>);
+</div></code></pre>
+<hr>
+<h3 id="q4-whats-offsetof-macro-and-how-to-implement-it">Q4: What's offsetof macro and how to implement it?</h3>
+<p><strong>Answer</strong>:</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Standard offsetof</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stddef.h&gt;</span></span>
+<span class="hljs-keyword">size_t</span> offset = offsetof(struct MyStruct, member);
+
+<span class="hljs-comment">// How it works (simplified):</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> MY_OFFSETOF(type, member) \
+    ((char*)&amp;((type*)0)-&gt;member - (char*)NULL)</span>
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> x;      <span class="hljs-comment">// Offset: 0</span>
+    <span class="hljs-keyword">int</span> y;      <span class="hljs-comment">// Offset: 4</span>
+    <span class="hljs-keyword">char</span> z;     <span class="hljs-comment">// Offset: 8</span>
+} Point;
+
+<span class="hljs-keyword">int</span> offset_y = MY_OFFSETOF(Point, y);  <span class="hljs-comment">// 4</span>
+</div></code></pre>
+<hr>
+<h3 id="q5-why-are-union-and-struct-sizes-different">Q5: Why are union and struct sizes different?</h3>
+<p><strong>Answer</strong>:</p>
+<ul>
+<li><strong>Struct</strong>: Sum of all members + padding</li>
+<li><strong>Union</strong>: Size of largest member + padding</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">S</span> {</span>
+    <span class="hljs-keyword">int</span> a;      <span class="hljs-comment">// 4 bytes</span>
+    <span class="hljs-keyword">int</span> b;      <span class="hljs-comment">// 4 bytes</span>
+    <span class="hljs-keyword">char</span> c;     <span class="hljs-comment">// 1 byte</span>
+};              <span class="hljs-comment">// Size: 12 bytes (4+4+1+3 padding)</span>
+
+<span class="hljs-keyword">union</span> U {
+    <span class="hljs-keyword">int</span> a;      <span class="hljs-comment">// 4 bytes</span>
+    <span class="hljs-keyword">int</span> b;      <span class="hljs-comment">// 4 bytes</span>
+    <span class="hljs-keyword">char</span> c;     <span class="hljs-comment">// 1 byte</span>
+};              <span class="hljs-comment">// Size: 4 bytes (only largest)</span>
+</div></code></pre>
+<hr>
+<h3 id="q6-whats-type-punning-and-when-is-it-useful">Q6: What's type punning and when is it useful?</h3>
+<p><strong>Answer</strong>: Interpreting same memory as different types</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">float</span> f = <span class="hljs-number">3.14</span>;
+<span class="hljs-keyword">int</span> i = *(<span class="hljs-keyword">int</span>*)&amp;f;  <span class="hljs-comment">// Type punning!</span>
+
+<span class="hljs-comment">// Better with union:</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">union</span> {
+    <span class="hljs-keyword">float</span> f;
+    <span class="hljs-keyword">int</span> i;
+} FloatInt;
+
+FloatInt fi;
+fi.f = <span class="hljs-number">3.14</span>;
+<span class="hljs-keyword">int</span> bits = fi.i;  <span class="hljs-comment">// Get bit representation</span>
+</div></code></pre>
+<p><strong>Uses</strong>:</p>
+<ul>
+<li>Hardware manipulation</li>
+<li>Protocol parsing</li>
+<li>Debugging bit patterns</li>
+</ul>
+<hr>
+<h3 id="q7-how-to-minimize-struct-size">Q7: How to minimize struct size?</h3>
+<p><strong>Answer</strong>: Reorder members by size (largest first)</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Inefficient</span>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Bad</span> {</span>
+    <span class="hljs-keyword">char</span> a;     <span class="hljs-comment">// 1 byte, 0</span>
+    <span class="hljs-keyword">int</span> b;      <span class="hljs-comment">// 4 bytes, 4</span>
+    <span class="hljs-keyword">char</span> c;     <span class="hljs-comment">// 1 byte, 8</span>
+    <span class="hljs-keyword">int</span> d;      <span class="hljs-comment">// 4 bytes, 12</span>
+};               <span class="hljs-comment">// Size: 16 bytes</span>
+
+<span class="hljs-comment">// Optimized</span>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Good</span> {</span>
+    <span class="hljs-keyword">int</span> b;      <span class="hljs-comment">// 4 bytes, 0</span>
+    <span class="hljs-keyword">int</span> d;      <span class="hljs-comment">// 4 bytes, 4</span>
+    <span class="hljs-keyword">char</span> a;     <span class="hljs-comment">// 1 byte, 8</span>
+    <span class="hljs-keyword">char</span> c;     <span class="hljs-comment">// 1 byte, 9</span>
+};               <span class="hljs-comment">// Size: 12 bytes</span>
+</div></code></pre>
+<hr>
+<h3 id="q8-what-are-bit-fields-and-what-are-their-issues">Q8: What are bit-fields and what are their issues?</h3>
+<p><strong>Answer</strong>: Allow packing multiple values into bits</p>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Flags</span> {</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> busy : <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> <span class="hljs-built_in">ready</span> : <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> error : <span class="hljs-number">1</span>;
+};  <span class="hljs-comment">// Uses 4 bytes for 3 bits!</span>
+
+<span class="hljs-comment">// Issues:</span>
+<span class="hljs-comment">// 1. Implementation-defined (not portable)</span>
+<span class="hljs-comment">// 2. Can't take address: &amp;flags.busy INVALID</span>
+<span class="hljs-comment">// 3. Slightly slower than bytes</span>
+<span class="hljs-comment">// 4. Bit order varies (compiler-dependent)</span>
+<span class="hljs-comment">// 5. Can't use signed types reliably</span>
+</div></code></pre>
+<hr>
+<h3 id="q9-how-to-ensure-fixed-memory-layout-for-hardware">Q9: How to ensure fixed memory layout for hardware?</h3>
+<p><strong>Answer</strong>: Use packed structs and explicit alignment</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Hardware register at fixed address</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> __<span class="hljs-title">attribute__</span>((<span class="hljs-title">packed</span>)) {</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> control;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> status;
+    <span class="hljs-keyword">unsigned</span> short data;
+} HardwareReg;
+
+<span class="hljs-keyword">volatile</span> HardwareReg *reg = (HardwareReg*)<span class="hljs-number">0x40000000</span>;
+
+<span class="hljs-comment">// Or use #pragma pack</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> pack(push, 1)</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> control;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> status;
+    <span class="hljs-keyword">unsigned</span> short data;
+} HardwareReg;
+<span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> pack(pop)</span>
+</div></code></pre>
+<hr>
+<h3 id="q10-explain-alignment-requirements-for-different-types">Q10: Explain alignment requirements for different types</h3>
+<p><strong>Answer</strong>: Each type has alignment = sizeof(type) usually</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">char</span>:       <span class="hljs-number">1</span> <span class="hljs-function"><span class="hljs-keyword">byte</span> <span class="hljs-title">alignment</span> <span class="hljs-params">(any address)</span>
+short:      2 <span class="hljs-keyword">byte</span> <span class="hljs-title">alignment</span> <span class="hljs-params">(even addresses)</span>
+<span class="hljs-keyword">int</span>:        4 <span class="hljs-keyword">byte</span> <span class="hljs-title">alignment</span> <span class="hljs-params">(<span class="hljs-number">4</span>-<span class="hljs-keyword">byte</span> aligned)</span>
+<span class="hljs-keyword">long</span>:       4 <span class="hljs-keyword">or</span> 8 <span class="hljs-title">bytes</span> <span class="hljs-params">(depends on system)</span>
+<span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span>:  8 <span class="hljs-keyword">byte</span> alignment
+<span class="hljs-keyword">float</span>:      4 <span class="hljs-keyword">byte</span> alignment
+<span class="hljs-keyword">double</span>:     8 <span class="hljs-keyword">byte</span> alignment
+pointer:    4 <span class="hljs-keyword">or</span> 8 <span class="hljs-title">bytes</span> <span class="hljs-params">(depends on <span class="hljs-number">32</span>/<span class="hljs-number">64</span>-<span class="hljs-built_in">bit</span>)</span>
+</span></div></code></pre>
+<p><strong>Rule</strong>: Struct alignment = alignment of largest member</p>
+<hr>
+<h3 id="q11-how-to-detect-endianness-using-union">Q11: How to detect endianness using union?</h3>
+<p><strong>Answer</strong>:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">union</span> {
+    <span class="hljs-keyword">int</span> int_val;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> bytes[<span class="hljs-number">4</span>];
+} EndianTest;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">check_endianness</span><span class="hljs-params">()</span> </span>{
+    EndianTest test = {<span class="hljs-number">0x01020304</span>};
+    
+    <span class="hljs-keyword">if</span>(test.bytes[<span class="hljs-number">0</span>] == <span class="hljs-number">0x01</span>) {
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Big-endian\n"</span>);    <span class="hljs-comment">// MSB first</span>
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Little-endian\n"</span>);  <span class="hljs-comment">// LSB first</span>
+    }
+}
+</div></code></pre>
+<hr>
+<h3 id="q12-when-to-use-typedef-struct-vs-struct">Q12: When to use typedef struct vs struct?</h3>
+<p><strong>Answer</strong>: Always use typedef in modern C</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Old style (avoid)</span>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Employee</span> {</span>
+    <span class="hljs-keyword">int</span> id;
+};
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Employee</span> <span class="hljs-title">emp</span>;</span>
+
+<span class="hljs-comment">// Modern style (preferred)</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> id;
+} Employee;
+Employee emp;
+
+<span class="hljs-comment">// Best practice: Single typedef keyword</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Employee</span> {</span>
+    <span class="hljs-keyword">int</span> id;
+} Employee;
+</div></code></pre>
+<hr>
+<h3 id="q13-how-does-struct-initialization-work">Q13: How does struct initialization work?</h3>
+<p><strong>Answer</strong>:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> x;
+    <span class="hljs-keyword">int</span> y;
+    <span class="hljs-keyword">char</span> *name;
+} Point;
+
+<span class="hljs-comment">// Designated initializers (C99+)</span>
+Point p1 = {.x = <span class="hljs-number">10</span>, .y = <span class="hljs-number">20</span>, .name = <span class="hljs-string">"Origin"</span>};
+
+<span class="hljs-comment">// Positional initialization</span>
+Point p2 = {<span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-string">"Origin"</span>};
+
+<span class="hljs-comment">// Partial initialization (rest = 0/NULL)</span>
+Point p3 = {<span class="hljs-number">10</span>, <span class="hljs-number">20</span>};  <span class="hljs-comment">// name = NULL</span>
+
+<span class="hljs-comment">// All zeros</span>
+Point p4 = {<span class="hljs-number">0</span>};
+</div></code></pre>
+<hr>
+<h3 id="q14-struct-inside-struct---memory-layout">Q14: Struct inside struct - memory layout?</h3>
+<p><strong>Answer</strong>:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> day;
+    <span class="hljs-keyword">int</span> month;
+    <span class="hljs-keyword">int</span> year;
+} Date;  <span class="hljs-comment">// 12 bytes</span>
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> id;         <span class="hljs-comment">// 4 bytes, offset 0</span>
+    Date joinDate;  <span class="hljs-comment">// 12 bytes, offset 4 (or 8?)</span>
+} Employee;
+
+<span class="hljs-comment">// Alignment matters:</span>
+<span class="hljs-comment">// If Date needs 4-byte alignment, padding added after id</span>
+<span class="hljs-comment">// Total might be 20 bytes, not 16</span>
+</div></code></pre>
+<hr>
+<h3 id="q15-whats-the-difference-between-offsetof-and-manual-calculation">Q15: What's the difference between offsetof and manual calculation?</h3>
+<p><strong>Answer</strong>:</p>
+<pre class="hljs"><code><div><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stddef.h&gt;</span></span>
+
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">S</span> {</span>
+    <span class="hljs-keyword">int</span> a;
+    <span class="hljs-keyword">char</span> b;
+    <span class="hljs-keyword">int</span> c;
+};
+
+<span class="hljs-comment">// Using offsetof</span>
+<span class="hljs-keyword">size_t</span> offset_c = offsetof(struct S, c);
+
+<span class="hljs-comment">// Manual calculation</span>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">S</span> <span class="hljs-title">s</span>;</span>
+<span class="hljs-keyword">size_t</span> offset_c = (<span class="hljs-keyword">char</span>*)&amp;s.c - (<span class="hljs-keyword">char</span>*)&amp;s;
+
+<span class="hljs-comment">// offsetof is:</span>
+<span class="hljs-comment">// - Compile-time constant</span>
+<span class="hljs-comment">// - Works with incomplete types</span>
+<span class="hljs-comment">// - More portable</span>
+<span class="hljs-comment">// - Preferred in real code</span>
+</div></code></pre>
+<hr>
+<h2 id="advanced-problems">Advanced Problems</h2>
+<h3 id="problem-31-implement-offsetof-macro">Problem 31: Implement offsetof Macro</h3>
+<p><strong>Goal</strong>: Create your own offsetof<br>
+<strong>Input</strong>: Struct type and member<br>
+<strong>Output</strong>: Offset value</p>
+<pre class="hljs"><code><div><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> MY_OFFSETOF(type, member) \
+    ((size_t)&amp;(((type *)0)-&gt;member))</span>
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> x;
+    <span class="hljs-keyword">char</span> y;
+    <span class="hljs-keyword">float</span> z;
+} Point;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_31</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Offset of x: %zu\n"</span>, MY_OFFSETOF(Point, x));
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Offset of y: %zu\n"</span>, MY_OFFSETOF(Point, y));
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Offset of z: %zu\n"</span>, MY_OFFSETOF(Point, z));
+}
+</div></code></pre>
+<hr>
+<h3 id="problem-32-flexible-array-member">Problem 32: Flexible Array Member</h3>
+<p><strong>Goal</strong>: Create struct with variable-length array<br>
+<strong>Input</strong>: Data of unknown size<br>
+<strong>Output</strong>: Struct with trailing array</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> count;
+    <span class="hljs-keyword">int</span> data[];  <span class="hljs-comment">// Flexible array member (C99)</span>
+} IntArray;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_32</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">// Allocate for 10 integers</span>
+    IntArray *arr = <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(IntArray) + <span class="hljs-number">10</span> * <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">int</span>));
+    arr-&gt;count = <span class="hljs-number">10</span>;
+    
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Use array</span>
+    arr-&gt;data[<span class="hljs-number">0</span>] = <span class="hljs-number">100</span>;
+    arr-&gt;data[<span class="hljs-number">5</span>] = <span class="hljs-number">200</span>;
+    
+    <span class="hljs-built_in">free</span>(arr);
+}
+</div></code></pre>
+<hr>
+<h3 id="problem-33-struct-copy-with-memcpy">Problem 33: Struct Copy with memcpy</h3>
+<p><strong>Goal</strong>: Copy struct safely<br>
+<strong>Input</strong>: Source and destination structs<br>
+<strong>Output</strong>: Copied structure</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> id;
+    <span class="hljs-keyword">char</span> name[<span class="hljs-number">50</span>];
+    <span class="hljs-keyword">float</span> salary;
+} Employee;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_33</span><span class="hljs-params">()</span> </span>{
+    Employee emp1 = {<span class="hljs-number">1</span>, <span class="hljs-string">"John"</span>, <span class="hljs-number">50000</span>};
+    Employee emp2;
+    
+    <span class="hljs-comment">// Unsafe (what about pointers inside)?</span>
+    <span class="hljs-built_in">memcpy</span>(&amp;emp2, &amp;emp1, <span class="hljs-keyword">sizeof</span>(Employee));
+    
+    <span class="hljs-comment">// Question: When is memcpy safe? When not?</span>
+    <span class="hljs-comment">// Answer: Safe only if struct contains no pointers</span>
+}
+</div></code></pre>
+<hr>
+<h3 id="problem-34-struct-in-binary-format">Problem 34: Struct in Binary Format</h3>
+<p><strong>Goal</strong>: Write/read struct to binary file<br>
+<strong>Input</strong>: Struct data<br>
+<strong>Output</strong>: Binary file</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> id;
+    <span class="hljs-keyword">char</span> name[<span class="hljs-number">32</span>];
+    <span class="hljs-keyword">float</span> score;
+} Student;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_34</span><span class="hljs-params">()</span> </span>{
+    Student s = {<span class="hljs-number">1</span>, <span class="hljs-string">"John"</span>, <span class="hljs-number">95.5</span>};
+    
+    <span class="hljs-comment">// Write to file</span>
+    FILE *f = fopen(<span class="hljs-string">"students.bin"</span>, <span class="hljs-string">"wb"</span>);
+    fwrite(&amp;s, <span class="hljs-keyword">sizeof</span>(s), <span class="hljs-number">1</span>, f);
+    fclose(f);
+    
+    <span class="hljs-comment">// Read from file</span>
+    f = fopen(<span class="hljs-string">"students.bin"</span>, <span class="hljs-string">"rb"</span>);
+    Student s2;
+    fread(&amp;s2, <span class="hljs-keyword">sizeof</span>(s2), <span class="hljs-number">1</span>, f);
+    fclose(f);
+    
+    <span class="hljs-comment">// Question: Endianness issues?</span>
+    <span class="hljs-comment">// Question: Portability concerns?</span>
+}
+</div></code></pre>
+<hr>
+<h3 id="problem-35-nested-unions">Problem 35: Nested Unions</h3>
+<p><strong>Goal</strong>: Union containing union<br>
+<strong>Input</strong>: Hierarchical data<br>
+<strong>Output</strong>: Nested union structure</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">union</span> {
+    <span class="hljs-keyword">int</span> time;
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+        <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> hour : <span class="hljs-number">5</span>;
+        <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> <span class="hljs-built_in">min</span> : <span class="hljs-number">6</span>;
+        <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> sec : <span class="hljs-number">6</span>;
+    } hms;
+} TimeValue;
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> type;
+    <span class="hljs-keyword">union</span> {
+        <span class="hljs-keyword">float</span> temperature;
+        TimeValue time;
+        <span class="hljs-keyword">int</span> pressure;
+    } data;
+} SensorData;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">problem_35</span><span class="hljs-params">()</span> </span>{
+    SensorData s;
+    s.type = <span class="hljs-number">2</span>;  <span class="hljs-comment">// Time sensor</span>
+    s.data.time.hms.hour = <span class="hljs-number">14</span>;
+    s.data.time.hms.<span class="hljs-built_in">min</span> = <span class="hljs-number">30</span>;
+}
+</div></code></pre>
+<hr>
+<h2 id="common-mistakes">Common Mistakes</h2>
+<h3 id="%E2%9D%8C-forgetting-struct-tag">❌ Forgetting Struct Tag</h3>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>      <span class="hljs-comment">// No tag!</span>
+    <span class="hljs-keyword">int</span> x;
+    <span class="hljs-keyword">int</span> y;
+} <span class="hljs-built_in">point</span>;
+
+point2 = <span class="hljs-built_in">point</span>;  <span class="hljs-comment">// Can't declare another of this type</span>
+</div></code></pre>
+<p>✓ <strong>Fix</strong>: Add struct name</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Point</span> {</span>
+    <span class="hljs-keyword">int</span> x;
+    <span class="hljs-keyword">int</span> y;
+} Point;
+
+Point p1, p2;
+</div></code></pre>
+<hr>
+<h3 id="%E2%9D%8C-accessing-uninitialized-struct">❌ Accessing Uninitialized Struct</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> *ptr;
+} MyStruct;
+
+MyStruct s;
+*s.ptr = <span class="hljs-number">10</span>;  <span class="hljs-comment">// CRASH! ptr is uninitialized</span>
+</div></code></pre>
+<p>✓ <strong>Fix</strong>: Initialize all members</p>
+<pre class="hljs"><code><div>MyStruct s = {<span class="hljs-number">0</span>};  <span class="hljs-comment">// Zero-initialize</span>
+s.ptr = <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">int</span>));
+*s.ptr = <span class="hljs-number">10</span>;
+</div></code></pre>
+<hr>
+<h3 id="%E2%9D%8C-assuming-fixed-size-portability">❌ Assuming Fixed Size (Portability)</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">char</span> a;
+    <span class="hljs-keyword">int</span> b;
+} MyStruct;
+
+<span class="hljs-keyword">int</span> <span class="hljs-built_in">size</span> = <span class="hljs-number">5</span>;  <span class="hljs-comment">// WRONG! Could be 8 on some systems</span>
+</div></code></pre>
+<p>✓ <strong>Fix</strong>: Use actual size</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span> <span class="hljs-built_in">size</span> = <span class="hljs-keyword">sizeof</span>(MyStruct);
+<span class="hljs-comment">// Or use offsetof and manual calculation</span>
+</div></code></pre>
+<hr>
+<h3 id="%E2%9D%8C-taking-address-of-bit-field">❌ Taking Address of Bit-Field</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> flag : <span class="hljs-number">1</span>;
+} Flags;
+
+Flags f;
+<span class="hljs-keyword">int</span> *p = &amp;f.flag;  <span class="hljs-comment">// COMPILE ERROR! Can't take address</span>
+</div></code></pre>
+<p>✓ <strong>Fix</strong>: Use byte instead</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> flag;  <span class="hljs-comment">// Use whole byte</span>
+} Flags;
+
+Flags f;
+<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> *p = &amp;f.flag;  <span class="hljs-comment">// OK</span>
+</div></code></pre>
+<hr>
+<h3 id="%E2%9D%8C-comparing-structs-with-memcmp">❌ Comparing Structs with memcmp</h3>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">S</span> <span class="hljs-title">s1</span> = {</span><span class="hljs-number">10</span>, <span class="hljs-string">'a'</span>};
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">S</span> <span class="hljs-title">s2</span> = {</span><span class="hljs-number">10</span>, <span class="hljs-string">'a'</span>};
+
+<span class="hljs-keyword">if</span>(<span class="hljs-built_in">memcmp</span>(&amp;s1, &amp;s2, <span class="hljs-keyword">sizeof</span>(struct S)) == <span class="hljs-number">0</span>) {  <span class="hljs-comment">// WRONG!</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Equal\n"</span>);
+}
+<span class="hljs-comment">// Padding bytes might differ!</span>
+</div></code></pre>
+<p>✓ <strong>Fix</strong>: Compare members individually</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">if</span>(s1.x == s2.x &amp;&amp; s1.y == s2.y) {
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Equal\n"</span>);
+}
+</div></code></pre>
+<hr>
+<h3 id="%E2%9D%8C-using-sizeof-on-type-instead-of-variable">❌ Using sizeof on Type Instead of Variable</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> data[<span class="hljs-number">100</span>];
+} Buffer;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">send</span><span class="hljs-params">(Buffer *b, <span class="hljs-keyword">int</span> <span class="hljs-built_in">size</span>)</span> </span>{
+    <span class="hljs-comment">// size is from user, might be wrong</span>
+    <span class="hljs-keyword">char</span> *p = <span class="hljs-built_in">malloc</span>(<span class="hljs-built_in">size</span>);
+    <span class="hljs-built_in">memcpy</span>(p, b, <span class="hljs-built_in">size</span>);  <span class="hljs-comment">// Might overflow!</span>
+}
+</div></code></pre>
+<p>✓ <strong>Fix</strong>: Use correct calculation</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">if</span>(<span class="hljs-built_in">size</span> &gt; <span class="hljs-keyword">sizeof</span>(*b)) {
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Size exceeds buffer\n"</span>);
+    <span class="hljs-keyword">return</span>;
+}
+<span class="hljs-built_in">memcpy</span>(p, b, <span class="hljs-built_in">size</span>);
+</div></code></pre>
+<hr>
+<h3 id="%E2%9D%8C-pointer-arithmetic-on-struct">❌ Pointer Arithmetic on Struct</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> x;
+    <span class="hljs-keyword">int</span> y;
+} Point;
+
+Point *p = ...;
+p++;  <span class="hljs-comment">// Moves by sizeof(Point), not 1 byte!</span>
+</div></code></pre>
+<p>✓ <strong>Fix</strong>: Understand pointer arithmetic</p>
+<pre class="hljs"><code><div>Point *p = ...;
+p++;  <span class="hljs-comment">// Correct - moves to next Point</span>
+
+<span class="hljs-keyword">char</span> *c = (<span class="hljs-keyword">char</span>*)p;
+c++;  <span class="hljs-comment">// Moves 1 byte</span>
+</div></code></pre>
+<hr>
+<h3 id="%E2%9D%8C-assuming-union-member-persistence">❌ Assuming Union Member Persistence</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">union</span> U {
+    <span class="hljs-keyword">int</span> i;
+    <span class="hljs-keyword">float</span> f;
+};
+
+U u;
+u.i = <span class="hljs-number">42</span>;
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d"</span>, u.f);  <span class="hljs-comment">// GARBAGE! Not 42</span>
+</div></code></pre>
+<p>✓ <strong>Fix</strong>: Only one member at a time</p>
+<pre class="hljs"><code><div>u.i = <span class="hljs-number">42</span>;
+<span class="hljs-keyword">int</span> i_val = u.i;  <span class="hljs-comment">// Use same member</span>
+
+u.f = <span class="hljs-number">3.14</span>;
+<span class="hljs-keyword">float</span> f_val = u.f;  <span class="hljs-comment">// New member, old value lost</span>
+</div></code></pre>
+<hr>
+<h3 id="%E2%9D%8C-bit-field-sign-extension">❌ Bit-Field Sign Extension</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> flag : <span class="hljs-number">1</span>;  <span class="hljs-comment">// DANGEROUS!</span>
+} Bits;
+
+Bits b;
+b.flag = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">if</span>(b.flag == <span class="hljs-number">-1</span>) {  <span class="hljs-comment">// Might be true! (Sign extended)</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"True\n"</span>);
+}
+</div></code></pre>
+<p>✓ <strong>Fix</strong>: Use unsigned</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> flag : <span class="hljs-number">1</span>;  <span class="hljs-comment">// Always 0 or 1</span>
+} Bits;
+</div></code></pre>
+<hr>
+<h3 id="%E2%9D%8C-packing-struct-incorrectly">❌ Packing Struct Incorrectly</h3>
+<pre class="hljs"><code><div><span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> pack(1)</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> a;      <span class="hljs-comment">// Unaligned access!</span>
+    <span class="hljs-keyword">int</span> b;      <span class="hljs-comment">// CPU might not support this</span>
+} Packed;
+<span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> pack()</span>
+
+<span class="hljs-keyword">volatile</span> Packed *reg = (Packed*)<span class="hljs-number">0x40000000</span>;
+reg-&gt;a = <span class="hljs-number">10</span>;  <span class="hljs-comment">// Might crash on some CPUs</span>
+</div></code></pre>
+<p>✓ <strong>Fix</strong>: Check hardware requirements</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Or use bit manipulation instead</span>
+<span class="hljs-keyword">volatile</span> <span class="hljs-keyword">int</span> *base = (<span class="hljs-keyword">int</span>*)<span class="hljs-number">0x40000000</span>;
+<span class="hljs-keyword">int</span> a = (base[<span class="hljs-number">0</span>] &gt;&gt; <span class="hljs-number">0</span>) &amp; <span class="hljs-number">0xFF</span>;
+<span class="hljs-keyword">int</span> b = (base[<span class="hljs-number">0</span>] &gt;&gt; <span class="hljs-number">8</span>) &amp; <span class="hljs-number">0xFF</span>;
+</div></code></pre>
+<hr>
+<h2 id="tips--tricks">Tips &amp; Tricks</h2>
+<h3 id="1-use-typedef-for-faster-coding">1. <strong>Use typedef for faster coding</strong></h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// In interviews, save typing</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> x, y;
+} Point;
+
+<span class="hljs-comment">// Instead of</span>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Point</span> {</span>
+    <span class="hljs-keyword">int</span> x;
+    <span class="hljs-keyword">int</span> y;
+};
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Point</span> <span class="hljs-title">p</span>;</span>
+</div></code></pre>
+<h3 id="2-zero-initialize-structs">2. <strong>Zero-initialize structs</strong></h3>
+<pre class="hljs"><code><div>MyStruct s = {<span class="hljs-number">0</span>};  <span class="hljs-comment">// All members = 0</span>
+<span class="hljs-comment">// Much safer than uninitialized</span>
+</div></code></pre>
+<h3 id="3-check-struct-size">3. <strong>Check struct size</strong></h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> a;
+} MyStruct;
+
+<span class="hljs-comment">// Early check in code</span>
+_Static_assert(<span class="hljs-keyword">sizeof</span>(MyStruct) == <span class="hljs-number">4</span>, <span class="hljs-string">"Unexpected size"</span>);
+</div></code></pre>
+<h3 id="4-use-designated-initializers-c99">4. <strong>Use designated initializers (C99+)</strong></h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// Clear and order-independent</span>
+Point p = {.y = <span class="hljs-number">20</span>, .x = <span class="hljs-number">10</span>};
+
+<span class="hljs-comment">// vs positional</span>
+Point p = {<span class="hljs-number">10</span>, <span class="hljs-number">20</span>};  <span class="hljs-comment">// Easy to mess up</span>
+</div></code></pre>
+<h3 id="5-device-register-mapping">5. <strong>Device register mapping</strong></h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">volatile</span> HardwareReg *device = (HardwareReg*)<span class="hljs-number">0x40000000</span>;
+device-&gt;control = <span class="hljs-number">1</span>;  <span class="hljs-comment">// Direct memory access</span>
+</div></code></pre>
+<h3 id="6-pointer-to-self-for-linked-structures">6. <strong>Pointer to self for linked structures</strong></h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Node</span> {</span>
+    <span class="hljs-keyword">int</span> data;
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Node</span> *<span class="hljs-title">next</span>;</span>  <span class="hljs-comment">// Forward reference</span>
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Node</span> *<span class="hljs-title">prev</span>;</span>
+} Node;
+</div></code></pre>
+<h3 id="7-use-unions-for-hardware-abstraction">7. <strong>Use unions for hardware abstraction</strong></h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// Makes hardware code more readable</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">union</span> {
+    <span class="hljs-keyword">uint32_t</span> raw;
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+        <span class="hljs-keyword">uint32_t</span> enable : <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">uint32_t</span> mode : <span class="hljs-number">3</span>;
+        <span class="hljs-keyword">uint32_t</span> reserved : <span class="hljs-number">28</span>;
+    } bits;
+} ControlReg;
+</div></code></pre>
+<h3 id="8-calculate-size-at-compile-time">8. <strong>Calculate size at compile-time</strong></h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">enum</span> {
+    STRUCT_SIZE = <span class="hljs-keyword">sizeof</span>(MyStruct),
+    MEMBER_OFFSET = offsetof(MyStruct, member)
+};
+
+<span class="hljs-keyword">char</span> <span class="hljs-built_in">buffer</span>[STRUCT_SIZE];
+</div></code></pre>
+<h3 id="9-use-compiler-attributes-for-alignment">9. <strong>Use compiler attributes for alignment</strong></h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// Align to 16-byte boundary</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> __<span class="hljs-title">attribute__</span>((<span class="hljs-title">aligned</span>(16))) {</span>
+    <span class="hljs-keyword">int</span> x;
+} Aligned;
+</div></code></pre>
+<h3 id="10-flexible-array-for-variable-data">10. <strong>Flexible array for variable data</strong></h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    <span class="hljs-keyword">int</span> count;
+    <span class="hljs-keyword">int</span> items[];  <span class="hljs-comment">// Variable-length</span>
+} IntList;
+
+IntList *<span class="hljs-built_in">list</span> = <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(*<span class="hljs-built_in">list</span>) + count * <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">int</span>));
+</div></code></pre>
+<hr>
+<h2 id="compilation-and-testing">Compilation and Testing</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># Compile with alignment warnings</span>
+gcc -Wall -Wpadded -o <span class="hljs-built_in">test</span> test.c
+
+<span class="hljs-comment"># Check struct alignment</span>
+gcc -g -o <span class="hljs-built_in">test</span> test.c
+./<span class="hljs-built_in">test</span>
+
+<span class="hljs-comment"># Use compiler warnings about packed structs</span>
+gcc -Wpacked -o <span class="hljs-built_in">test</span> test.c
+
+<span class="hljs-comment"># Verify memory alignment</span>
+gcc -O2 -o <span class="hljs-built_in">test</span> test.c
+./<span class="hljs-built_in">test</span>
+</div></code></pre>
+<hr>
+<h2 id="practice-checklist">Practice Checklist</h2>
+<ul>
+<li><input type="checkbox" id="checkbox0"><label for="checkbox0">Solve Problems 1-10 (Basic structs)</label></li>
+<li><input type="checkbox" id="checkbox1"><label for="checkbox1">Solve Problems 11-16 (Unions)</label></li>
+<li><input type="checkbox" id="checkbox2"><label for="checkbox2">Solve Problems 17-20 (Memory layout)</label></li>
+<li><input type="checkbox" id="checkbox3"><label for="checkbox3">Solve Problems 21-25 (Size calculation)</label></li>
+<li><input type="checkbox" id="checkbox4"><label for="checkbox4">Solve Problems 26-30 (Bit-fields)</label></li>
+<li><input type="checkbox" id="checkbox5"><label for="checkbox5">Solve Problems 31-35 (Advanced)</label></li>
+<li><input type="checkbox" id="checkbox6"><label for="checkbox6">Answer Q1-Q15 from memory</label></li>
+<li><input type="checkbox" id="checkbox7"><label for="checkbox7">Explain memory layout of structs</label></li>
+<li><input type="checkbox" id="checkbox8"><label for="checkbox8">Calculate alignment without tools</label></li>
+<li><input type="checkbox" id="checkbox9"><label for="checkbox9">Avoid all common mistakes</label></li>
+<li><input type="checkbox" id="checkbox10"><label for="checkbox10">Understand bit-field pitfalls</label></li>
+<li><input type="checkbox" id="checkbox11"><label for="checkbox11">Know union vs struct differences</label></li>
+</ul>
+<hr>
+<h2 id="interview-tips">Interview Tips</h2>
+<ol>
+<li>
+<p><strong>Ask clarifications</strong>:</p>
+<ul>
+<li>&quot;Can I use sizeof?&quot; (Test your knowledge)</li>
+<li>&quot;Need exact alignments?&quot; (Packing concerns)</li>
+<li>&quot;Hardware register?&quot; (Union vs struct)</li>
+</ul>
+</li>
+<li>
+<p><strong>Show memory diagrams</strong>:</p>
+<ul>
+<li>Draw struct layout on whiteboard</li>
+<li>Show padding and alignment</li>
+<li>Explain why positioned that way</li>
+</ul>
+</li>
+<li>
+<p><strong>Discuss tradeoffs</strong>:</p>
+<ul>
+<li>Size vs performance</li>
+<li>Portability vs optimization</li>
+<li>Clarity vs cleverness</li>
+</ul>
+</li>
+<li>
+<p><strong>Test edge cases</strong>:</p>
+<ul>
+<li>Empty struct</li>
+<li>Large struct</li>
+<li>Nested structures</li>
+<li>Unions with different types</li>
+</ul>
+</li>
+<li>
+<p><strong>Know embedded context</strong>:</p>
+<ul>
+<li>Hardware register mapping</li>
+<li>Memory-constrained systems</li>
+<li>Bit-field limitations</li>
+<li>Endianness concerns</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p><strong>Good luck with your Embedded C interview! 🎯</strong></p>
+
+</body>
+</html>
