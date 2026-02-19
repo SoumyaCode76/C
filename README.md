@@ -1,11 +1,3 @@
-# Practice DSA and coding problems
+# Learn and Practice Multi-threading in C
 
-### Websites:
-1. GeeksForGeeks
-2. LeetCode
-3. Embedkari
-### Learn:
-1. DSA
-2. C++
-3. Multithreading in C
-4. Concurrency theory
+## Course name: Linux POSIX Threads ( Pthreads ), thread Synchronization, Operating System Concepts, C/C++ programming with Projects
