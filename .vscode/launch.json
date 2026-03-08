@@ -5,7 +5,7 @@
             "name": "Debug C Program: String split",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/string_split", // Path to the compiled executable
+            "program": "${workspaceFolder}/string_split",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
@@ -31,7 +31,7 @@
             "name": "Debug C Program: Decimal to binary",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/decimal_to_binary", // Path to the compiled executable
+            "program": "${workspaceFolder}/decimal_to_binary",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
@@ -57,7 +57,7 @@
             "name": "Debug C Program: Mealy State Machine",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/mealy_state_machine", // Path to the compiled executable
+            "program": "${workspaceFolder}/mealy_state_machine",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
@@ -78,6 +78,58 @@
                 "traceResponse": true,
                 "engineLogging": true
             }
+        },
+        {
+            "name": "C/C++: g++ build and debug active file",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "C/C++: g++ build active file",
+            "miDebuggerPath": "/usr/bin/gdb"
+        },
+        {
+            "name": "C/C++: g++-13 build and debug active file",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "C/C++: g++-13 build active file",
+            "miDebuggerPath": "/usr/bin/gdb"
         }
     ]
 }
