@@ -67,11 +67,19 @@ void receive_inputs(tOpChoices &choice, int &x, int &y)
     unsigned char c_in = 0;
     do
     {
-        while(!(cin >> c_in))
+        if(!(cin >> c_in))
         {
-            cout << "Invalid choice provided. Please try again..." << endl;
+            cout << "Choice input failed. Please try again..." << endl;
             cin.clear();
+            continue;
+        }
+        else if(cin.peek() == '.')
+        {
+            cout << "Invalid input character provided. Please try again..." << endl;
+            cin.ignore(numeric_limits<streamsize>::max(), '.');
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            choice = NONE;
+            continue;
         }
         choice = get_choice_key(c_in);
         if(choice == NONE)
@@ -87,9 +95,14 @@ void receive_inputs(tOpChoices &choice, int &x, int &y)
             cout << "Invalid input provided. Please try again..." << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            choice = NONE;
+            break;
+        }
+        if(choice != NONE)
+        {
+            x = static_cast<int>(x_in);
+            y = static_cast<int>(y_in);
         }        
-        x = static_cast<int>(x_in);
-        y = static_cast<int>(y_in);
     }
 }
 
@@ -101,7 +114,7 @@ void validate_inputs(const tOpChoices &choice, const int &x, const int &y)
         set_system_state(sys_state, EXIT);
         op_to_perform = NONE;
     }
-    else
+    else if(choice != NONE)
     {
         int entered_choice = static_cast<int>(choice);
         switch(choice)
@@ -110,7 +123,6 @@ void validate_inputs(const tOpChoices &choice, const int &x, const int &y)
             case SUBTRACTION:
             case MULTIPLICATION:
             {
-                cout << "Inputs are valid. Processing..." << endl;
                 set_system_state(sys_state, BUSY);
                 op_to_perform = static_cast<tOpChoices>(choice);            
             }
@@ -125,7 +137,6 @@ void validate_inputs(const tOpChoices &choice, const int &x, const int &y)
                 }
                 else
                 {
-                    cout << "Inputs are valid. Processing..." << endl;
                     set_system_state(sys_state, BUSY);
                     op_to_perform = static_cast<tOpChoices>(choice);            
                 }                
@@ -181,7 +192,7 @@ int main(void)
         {
             display_menu = false;
             cout << "=========================================" << endl;
-            cout << "Syntax of passing the arguments\n" << "<choice> <first number> <second number>" << endl; 
+            cout << "Syntax of passing the arguments (Note: Decimal inputs will be rounded down to previous integer)\n" << "<choice> <first number> <second number>" << endl; 
             cout << "Choose any one from the following options" << endl;
             cout << "a <first number> + <second number>" << endl;
             cout << "b <first number> - <second number>" << endl;
