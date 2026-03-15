@@ -1,0 +1,15 @@
+=============================INHERITANCE================================
+1. Access specifier set theory: public -> superset of protected -> superset of private
+2. Derived class inheriting Base class as public:
+    a. public members inherited as public
+    b. protected members inherited as protected
+    c. private members not inherited.
+3. Derived class inheriting Base class as protected:
+    a. public members inherited as protected.
+    b. protected members inherited as protected.
+    c. private members not inherited.
+4. Derived class inheriting Base class as private.
+    a. public members inherited as private.
+    b. protected members inherited as private.
+    c. private members not inherited.
+************************************************************************
