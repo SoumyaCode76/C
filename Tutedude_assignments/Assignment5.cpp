@@ -47,10 +47,21 @@ tStudentDetailsTable StudentTable = {
     * Choice 4: display on-screen what the user needs to enter to exit from the app.
     
    Test cases:
+    * Common:
+        - all provided choices must trigger the respective response handlers and perform the correct operation if inputs are valid.
+        - user enters no input. no reaction from the app to be given.
+        - user enters non-numeric inputs for the choices, the app should reject and restart the app.
     * Choice 1:
-        - user enters non-numeric characters for age, id. app should reject and restart the app
-
-
+        - user enters non-numeric characters for age, id. app should reject and restart the app.
+        - user enters negative number for ID and Age, app should reject and restart.
+        - user enters grade other than A, B, C, D, E, F, shall be rejected and restart.
+        - if no further entries available, this choice must not be displayed. Rather a relevant message should be displayed.
+    * Choice 2:
+        - if no further entries available, this choice must not be displayed. Rather a relevant message should be displayed.
+    * Choice 3:
+        - No such negative test cases
+    * Choice 4:
+        - No such negative test cases
 */
 
 void fill_student_details(unsigned int id, string name, unsigned int age, unsigned char grade)
@@ -58,34 +69,7 @@ void fill_student_details(unsigned int id, string name, unsigned int age, unsign
 
 }
 
-int sum_of_numbers(int, int);
-double sum_of_numbers(double, double);
-int sum_of_numbers(int, int, int);
 
-int main(void)
-{
-    int a = 2, b= 3, c = 4;
-    cout << a << " + " << b << " = " << sum_of_numbers(a, b) << endl;
-    int x = 4.0, y = -7.6;
-    cout << x << " + " << y << " = " << sum_of_numbers(x, y) << endl;
-    cout << a << " + " << b << " + " << c << " = " << sum_of_numbers(a, b, c) << endl;    
-    return 0;
-}
-
-int sum_of_numbers(int a, int b)
-{
-    return a + b;
-}
-
-double sum_of_numbers(double x, double y)
-{
-    return x + y;
-}
-
-int sum_of_numbers(int a, int b, int c)
-{
-    return a + b + c;
-}
 #elif (Q2 == 1)
 
 /* Define a class representing stack */

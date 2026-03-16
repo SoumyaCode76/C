@@ -1,6 +1,6 @@
 #define Q1                      (0)
-#define Q2                      (1)
-#define Q3                      (0)
+#define Q2                      (0)
+#define Q3                      (1)
 
 #include <iostream>
 #include <string>
@@ -9,175 +9,162 @@
 using namespace std;
 
 #if (Q1 == 1)
-int sum_of_numbers(int, int);
-double sum_of_numbers(double, double);
-int sum_of_numbers(int, int, int);
+void print_duplicates(string);
 
 int main(void)
 {
-    int a = 2, b= 3, c = 4;
-    cout << a << " + " << b << " = " << sum_of_numbers(a, b) << endl;
-    int x = 4.0, y = -7.6;
-    cout << x << " + " << y << " = " << sum_of_numbers(x, y) << endl;
-    cout << a << " + " << b << " + " << c << " = " << sum_of_numbers(a, b, c) << endl;    
+    string test = "";
+    while(true)
+    {
+        cout << "Enter string: (Enter q or Q to quit)" << endl;
+        while(!(cin >> test));
+        if( test.length() == 1 && ((test == "q" ) || (test == "Q")) )
+        {
+            cout << "Goodbye!" << endl;
+            break;
+        }
+        else if(test.length() == 0)
+        {
+            cout << "Empty string detected! Please try again!" << endl;
+            continue;
+        }
+        print_duplicates(test);
+    }    
     return 0;
 }
 
-int sum_of_numbers(int a, int b)
+void print_duplicates(string s)
 {
-    return a + b;
+    unsigned int length = s.length();
+    unsigned int count = 0;
+    unsigned int freq[256] = {0};
+    unsigned int freq_size = (int *)(&freq + 1) - (int *)&freq;
+    for(unsigned int i = 0; i < length; i++)
+    {
+        freq[static_cast<int>(s[i])] += 1;
+    }
+    string frequency_output = "";
+    for(unsigned int i = 0; i < freq_size; i++)
+    {
+        if(freq[i] > 1)
+        {
+            frequency_output += static_cast<char>(i);
+        }
+    }
+    if(frequency_output.length() == 0)
+    {
+        cout << "No duplicates found in " << s;
+    }
+    else
+    {
+        cout << "Duplicates found in " << s << ": " << frequency_output;
+    }
+    cout << endl;
 }
 
-double sum_of_numbers(double x, double y)
-{
-    return x + y;
-}
-
-int sum_of_numbers(int a, int b, int c)
-{
-    return a + b + c;
-}
 #elif (Q2 == 1)
-
-/* Define a class representing stack */
-/* Define two operations: push and pop. */
-/* For push, overload the operator + */
-/* For pop, overload the operator -  */
-/* Ensure the stack is circular by design */
-
-class tStack
-{
-    private:
-        unsigned int noOfElements;
-        int* arr;
-        unsigned int count;
-    public:
-        tStack(int* arr)
-        {
-            /* Default stack to contain 50 elements */
-            tStack::arr = arr;
-            tStack::noOfElements = 50;
-            tStack::count = 0;
-            memset(tStack::arr, 0, tStack::noOfElements);
-        }
-        tStack(int* arr, unsigned int noOfElements)
-        {
-            /* Define number of elements required for the stack */
-            tStack::arr = arr;
-            tStack::noOfElements = noOfElements;
-            tStack::count = 0;
-            memset(tStack::arr, 0, tStack::noOfElements);
-        }
-
-        void display_stack(void)
-        {
-            if(count == 0)
-            {
-                cout << "Stack is empty" << endl;
-                return;
-            }
-            cout << "Stack elements: ";
-            for(int i = 0; i < count; i++)
-            {
-                cout << this->arr[i] << " ";
-            }
-            cout << endl;
-        }
-
-        void operator +(const int& val)
-        {
-            arr[count] = val;
-            count++;
-            count %= noOfElements;
-        }
-
-        void operator -(int& val)
-        {
-            if(count == 0)
-            {
-                count = noOfElements - 1;
-            }
-            else
-            {
-                count--;
-            }
-            val = arr[count];
-        }
-};
-
 int main(void)
 {
-    int* arr = new int[10];
-    tStack stack1(arr, 10);
-    stack1.display_stack();    
-    stack1 + 20;
-    stack1.display_stack();    
-    stack1 + 60;
-    stack1.display_stack();    
-    int val = 0;
-    stack1 - val;
-    cout << "Value popped: " << val <<endl;
-    stack1.display_stack();    
-    return 0;
+    while(true)
+    {
+        string input = "";
+        char ch_in = 0;
+        cout << "Enter the string and the character to search for: (Enter q or Q to quit)" << endl;
+        while(!(cin >> input));
+        if(input.length() == 1 && (input == "q" || input == "Q"))
+        {
+            cout << "Goodbye!" << endl;
+            break;
+        }
+        else if(input.length() == 0)
+        {
+            cout << "No string received. Please try again!" << endl;
+            continue;
+        }
+        else
+        {
+            while(!(cin >> ch_in));            
+            bool found = false;
+            for(int i = 0; i < input.length(); i++)
+            {
+                if(input[i] == ch_in)
+                {
+                    cout << "Found " << ch_in << " in " << input << " at: " << (i + 1) << "th position" << endl;
+                    found = true;
+                    break;
+                }
+            }
+            if(found == false)
+            {
+                cout << "Character " << ch_in << " not found in " << input << endl;
+            }
+        }
+    }
 }
-
 #elif (Q3 == 1)
-#include <limits>
-
-int GCD_of_two_numbers(int x, int y)
+string ToLowerCase(string input)
 {
-    int rem = 0;
-    int a = 0, b = 0;
-    if(x > y)
+    for(int i = 0; i < input.length(); i++)
     {
-        a = y;
-        b = x;
-    }
-    else
-    {
-        a = x;
-        b = y;
-    }
-    if(a == b)
-    {
-        return a;
-    }
-    else if( (b % a) == 0)
-    {
-        return a;
-    }
-    else
-    {
-        while(1)
+        int ch = static_cast<int>(input[i]);
+        if(ch >= 65 && ch <= 90)
         {
-            rem = b % a;
-            if(rem != 0)
-            {
-                b = a;
-                a = rem;
-            }           
-            else
-            {
-                return a;
-            } 
+            input[i] = static_cast<char>(ch + 32);
         }
-
     }
+    return input;
 }
+
+void print_vowels_consonants(const string& input)
+{
+    int no_of_vowels = 0, no_of_consonants = 0;
+    string input_lowercase = ToLowerCase(input);
+    int no_of_alphabets_found[26] = {0};
+    for(int i = 0; i < input_lowercase.length(); i++)
+    {
+        int ch = static_cast<int>(input_lowercase[i]);
+        if(ch >= 97 && ch <= 122)
+        {
+            /* The following check can be used to limit the output to distinct characters */
+            if(no_of_alphabets_found[static_cast<int>(input_lowercase[i])] >= 0)            
+            {
+                if(input_lowercase[i] == 'a' || input_lowercase[i] == 'e' || input_lowercase[i] == 'i' || input_lowercase[i] == 'o' || input_lowercase[i] == 'u')
+                {
+                    no_of_vowels += 1;
+                }
+                else
+                {
+                    no_of_consonants += 1;
+                }
+                no_of_alphabets_found[static_cast<int>(input_lowercase[i])] += 1;
+            }
+        }
+    }
+    cout << "Number of vowels in " << input << " is: " << no_of_vowels << endl; 
+    cout << "Number of consonants in " << input << " is: " << no_of_consonants << endl;
+}
+
 int main(void)
 {
-    double x_in = 0.0, y_in = 0.0;
-    int x = 0, y = 0;
-    cout << "Please enter two integers. (Note: Decimal numbers will be rounded down to the previous integers)" << endl;
-    while(!(cin >> x_in >> y_in))
+    while(true)
     {
-        cout << "Invalid input provided. Please try again..." << endl;
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        string input = "";
+        cout << "\nEnter the string: " << endl;
+        while(!(cin >> input));
+        if(input.length() == 1 && (input == "q" || input == "Q"))
+        {
+            cout << "Goodbye!" << endl;
+            break;
+        }
+        else if(input.empty() == true)
+        {
+            cout << "No string received. Please try again!" << endl;
+            continue;
+        }
+        else
+        {
+            print_vowels_consonants(input);
+        }
     }
-    x = static_cast<int>(x_in);
-    y = static_cast<int>(y_in);
-    cout << "GCD of " << x << " and " << y << " is: " << GCD_of_two_numbers(x, y) << endl;
-    return 0;
 }
 #endif

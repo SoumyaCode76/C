@@ -1,6 +1,6 @@
 #define Q1                      (0)
-#define Q2                      (1)
-#define Q3                      (0)
+#define Q2                      (0)
+#define Q3                      (1)
 
 #include <iostream>
 #include <string>
@@ -9,175 +9,183 @@
 using namespace std;
 
 #if (Q1 == 1)
-int sum_of_numbers(int, int);
-double sum_of_numbers(double, double);
-int sum_of_numbers(int, int, int);
+bool eligible_to_vote(unsigned int age)
+{
+    return (age >= 18) ? true : false;
+}
 
 int main(void)
 {
-    int a = 2, b= 3, c = 4;
-    cout << a << " + " << b << " = " << sum_of_numbers(a, b) << endl;
-    int x = 4.0, y = -7.6;
-    cout << x << " + " << y << " = " << sum_of_numbers(x, y) << endl;
-    cout << a << " + " << b << " + " << c << " = " << sum_of_numbers(a, b, c) << endl;    
-    return 0;
-}
-
-int sum_of_numbers(int a, int b)
-{
-    return a + b;
-}
-
-double sum_of_numbers(double x, double y)
-{
-    return x + y;
-}
-
-int sum_of_numbers(int a, int b, int c)
-{
-    return a + b + c;
-}
-#elif (Q2 == 1)
-
-/* Define a class representing stack */
-/* Define two operations: push and pop. */
-/* For push, overload the operator + */
-/* For pop, overload the operator -  */
-/* Ensure the stack is circular by design */
-
-class tStack
-{
-    private:
-        unsigned int noOfElements;
-        int* arr;
-        unsigned int count;
-    public:
-        tStack(int* arr)
+    double age_in;
+    while(true)
+    {
+        cout << "\n\nSyntax: <Enter age> (Enter -1 to exit)\n";
+        cout << "Age: ";
+        while(!(cin >> age_in))
         {
-            /* Default stack to contain 50 elements */
-            tStack::arr = arr;
-            tStack::noOfElements = 50;
-            tStack::count = 0;
-            memset(tStack::arr, 0, tStack::noOfElements);
+            cout << "Invalid input. Please try again!" << endl;
+            continue;
         }
-        tStack(int* arr, unsigned int noOfElements)
+        int age = static_cast<int>(age_in);
+        if(age == -1)
         {
-            /* Define number of elements required for the stack */
-            tStack::arr = arr;
-            tStack::noOfElements = noOfElements;
-            tStack::count = 0;
-            memset(tStack::arr, 0, tStack::noOfElements);
+            cout << "Goodbye!" << endl;
+            break;
         }
-
-        void display_stack(void)
+        else if(age < 0 && age != -1)
         {
-            if(count == 0)
+            cout << "Age cannot be negative. Please try again!" << endl;
+            continue;
+        }
+        else
+        {
+            if(true == eligible_to_vote(age))
             {
-                cout << "Stack is empty" << endl;
-                return;
-            }
-            cout << "Stack elements: ";
-            for(int i = 0; i < count; i++)
-            {
-                cout << this->arr[i] << " ";
-            }
-            cout << endl;
-        }
-
-        void operator +(const int& val)
-        {
-            arr[count] = val;
-            count++;
-            count %= noOfElements;
-        }
-
-        void operator -(int& val)
-        {
-            if(count == 0)
-            {
-                count = noOfElements - 1;
+                cout << "Eligible to vote" << endl;
             }
             else
             {
-                count--;
+                cout << "Not eligible to vote" << endl;
             }
-            val = arr[count];
         }
+    }
+}
+#elif (Q2 == 1)
+#include <cmath>
+
+#define NUMBER_OF_SUPPORTED_OPERATIONS          (5)
+
+enum
+{
+    ADDITION,
+    SUBTRACTION,
+    MULTIPLICATION,
+    DIVISION,
+    EXPONENT
 };
+
+double perform_addition(const double x1, const double x2)
+{
+    return x1 + x2;
+}
+double perform_subtraction(const double x1, const double x2)
+{
+    return x1 - x2;
+}
+double perform_multiplication(const double x1, const double x2)
+{
+    return x1 * x2;
+}
+double perform_division(const double x1, const double x2)
+{
+    return x1 / x2; 
+}
+double perform_exponent(const double x1, const double x2)
+{
+    return pow(x1, x2);
+}
+
+typedef double (*math_operation_function)(const double x1, const double x2);
+math_operation_function MathOperations[NUMBER_OF_SUPPORTED_OPERATIONS] = {
+                        perform_addition,
+                        perform_subtraction,
+                        perform_multiplication,
+                        perform_division,
+                        perform_exponent
+};
+
+void perform_math_operation(const double x1, const double x2, const char op)
+{
+    switch(op)
+    {
+        case '+':
+        {
+            cout << x1 << op << x2 << " = " << MathOperations[ADDITION](x1, x2) << endl;
+        }
+        break;
+        case '-':
+        {
+            cout << x1 << op << x2 << " = " << MathOperations[SUBTRACTION](x1, x2) << endl;
+        }
+        break;
+        case '*':
+        {
+            cout << x1 << op << x2 << " = " << MathOperations[MULTIPLICATION](x1, x2) << endl;
+        }
+        break;
+        case '/':
+        {
+            if(x2 == 0.0)
+            {
+                cout << "Division by zero not possible" << endl;
+            }
+            else
+            {
+                cout << x1 << op << x2 << " = " << MathOperations[DIVISION](x1, x2) << endl;
+            }
+        }
+        break;
+        case '^':
+        {
+            if(x1 == 0.0 && x2 == -1.0)
+            {
+                cout << "Division by zero not possible" << endl;
+            }
+            else
+            {
+                cout << x1 << op << x2 << " = " << MathOperations[EXPONENT](x1, x2) << endl;
+            }
+        }
+        break;
+        default:
+            cout << "Invalid operation requested!" << endl;
+    }
+}
 
 int main(void)
 {
-    int* arr = new int[10];
-    tStack stack1(arr, 10);
-    stack1.display_stack();    
-    stack1 + 20;
-    stack1.display_stack();    
-    stack1 + 60;
-    stack1.display_stack();    
-    int val = 0;
-    stack1 - val;
-    cout << "Value popped: " << val <<endl;
-    stack1.display_stack();    
+    double x1, x2;
+    char op;
+    cout << "Enter two numbers: " << endl;
+    while(!(cin >> x1 >> x2))
+    {
+        cout << "Invalid input" << endl;
+    }
+    cout << "Enter operation to perform (+, -, *, /, ^)";
+    while(true)
+    {
+        string operator_in = "";
+        while(!(cin >> operator_in));
+        if(operator_in.find_first_not_of("+-*/^") == string::npos && operator_in.length() == 1)
+        {
+            op = operator_in[0];
+            break;
+        }
+    }
+    perform_math_operation(x1, x2, op);
     return 0;
 }
+
+
 
 #elif (Q3 == 1)
 #include <limits>
 
-int GCD_of_two_numbers(int x, int y)
+double max_two(const double x, const double y)
 {
-    int rem = 0;
-    int a = 0, b = 0;
-    if(x > y)
-    {
-        a = y;
-        b = x;
-    }
-    else
-    {
-        a = x;
-        b = y;
-    }
-    if(a == b)
-    {
-        return a;
-    }
-    else if( (b % a) == 0)
-    {
-        return a;
-    }
-    else
-    {
-        while(1)
-        {
-            rem = b % a;
-            if(rem != 0)
-            {
-                b = a;
-                a = rem;
-            }           
-            else
-            {
-                return a;
-            } 
-        }
-
-    }
+    return (x > y) ? x : y;
 }
 int main(void)
 {
-    double x_in = 0.0, y_in = 0.0;
-    int x = 0, y = 0;
-    cout << "Please enter two integers. (Note: Decimal numbers will be rounded down to the previous integers)" << endl;
+    cout << "Please enter two numbers" << endl;
+    double x_in, y_in;
     while(!(cin >> x_in >> y_in))
     {
         cout << "Invalid input provided. Please try again..." << endl;
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
-    x = static_cast<int>(x_in);
-    y = static_cast<int>(y_in);
-    cout << "GCD of " << x << " and " << y << " is: " << GCD_of_two_numbers(x, y) << endl;
+    cout << "Max of " << x_in << " and " << y_in << " is: " << max_two(x_in, y_in) << endl;
     return 0;
 }
 #endif
