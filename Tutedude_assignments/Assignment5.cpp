@@ -10,7 +10,7 @@ using namespace std;
 
 #if (Q1 == 1)
 
-#define STUDENT_TABLE_CAPACITY      (10)
+#define STUDENT_TABLE_CAPACITY      (2U)
 
 typedef struct
 {
@@ -26,9 +26,14 @@ typedef struct
     unsigned int entries_available;
 }tStudentDetailsTable;
 
-tStudentDetailsTable StudentTable = {
-    .students = {0},
-    .entries_available = STUDENT_TABLE_CAPACITY
+tStudentDetailsTable StudentTable;
+
+enum
+{
+    CHOICE1 = 1U,
+    CHOICE2,
+    CHOICE3,
+    CHOICE4
 };
 
 /* Problem formulation:
@@ -66,8 +71,219 @@ tStudentDetailsTable StudentTable = {
 
 void fill_student_details(unsigned int id, string name, unsigned int age, unsigned char grade)
 {
-
+    if(StudentTable.entries_available > 0)
+    {
+        StudentTable.students[STUDENT_TABLE_CAPACITY - StudentTable.entries_available] = {
+            .ID = id,
+            .Name = name,
+            .Age = age,
+            .Grade = grade
+        };
+        StudentTable.entries_available--;
+        cout << "Details successfully entered\n";
+    }
+    else
+    {
+        cout << "No more space available\n";
+    }
 }
+
+void display_menu(void)
+{
+    if(StudentTable.entries_available > 0)
+    {
+        cout << "========================================" << endl;
+        cout << "1>Enter student details (ID, Name, Age, Grade)" << endl;
+        cout << "2>Enquire how many more entries can be entered\n";
+        cout << "3>Display the student details entered till now\n";
+        cout << "4>Exit\n";
+        cout << "========================================" << endl;
+    }
+    else
+    {
+        cout << "========================================" << endl;
+        cout << "Table is full\n";
+        cout << "3>Display the student details entered till now\n";
+        cout << "4>Exit\n";
+        cout << "========================================" << endl;
+    }
+}
+
+void execute_choices(int ch)
+{
+    if(StudentTable.entries_available > 0)
+    {
+        switch(ch)
+        {
+            case CHOICE1:
+            {
+                string inputs[4];
+                int id = 0, age = 0;
+                string name;
+                char grade;
+                cout << "\nEnter the ID (only positive integer numbers allowed)" << endl;
+                while(true)
+                {
+                    while(!(cin >> inputs[0]));
+                    if(inputs[0].empty())
+                    {
+                        continue;
+                    }
+                    else if(inputs[0].find_first_not_of("1234567890") && inputs[0] != "0")
+                    {
+                        id = stoi(inputs[0]);
+                        break;
+                    }
+                    else
+                    {
+                        cout << "Invalid input format for ID. Please try again\n";
+                        continue;
+                    }
+                }
+                cout << "\nEnter the name (3 or more characters)" << endl;
+                while(true)
+                {
+                    // while(!(cin >> inputs[1]));
+                    getline(cin, inputs[1]);
+                    if(inputs[1].empty())
+                    {
+                        continue;
+                    }
+                    else if(inputs[1].length() >= 3)
+                    {
+                        name = inputs[1];
+                        break;
+                    }
+                    else
+                    {
+                        cout << "Invalid number of characters entered. Please try again.\n";
+                        continue;
+                    }
+                }
+                cout << "\nEnter the age" << endl;
+                while(true)
+                {
+                    while(!(cin >> inputs[2]));
+                    if(inputs[2].empty())
+                    {
+                        continue;
+                    }
+                    else if(inputs[2].find_first_not_of("1234567890") && inputs[2] != "0")
+                    {
+                        age = stoi(inputs[2]);
+                        break;
+                    }
+                    else
+                    {
+                        cout << "Invalid input format for age. Please try again\n";
+                        continue;
+                    }
+                }
+                cout << "\nEnter the grade (Allowed: A, B, C, D, E, F)" << endl;
+                while(true)
+                {
+                    while(!(cin >> inputs[3]));
+                    if(inputs[3].empty())
+                    {
+                        continue;
+                    }
+                    else if(inputs[3].find_first_not_of("ABCDEF") && inputs[3].length() == 1U)
+                    {
+                        grade = inputs[3][0];
+                        break;
+                    }
+                    else
+                    {
+                        cout << "Invalid input format for grade. Please try again\n";
+                        continue;
+                    }
+                }       
+                fill_student_details(static_cast<unsigned int>(id), name, static_cast<unsigned int>(age), static_cast<unsigned char>(grade));
+            }
+            break;
+            case CHOICE2:
+            {
+                cout << "Number of entries available: " << StudentTable.entries_available << endl;
+            }
+            break;
+        }
+    }
+    if(ch == CHOICE3 || ch == CHOICE4)
+    {
+        switch(ch)
+        {
+            case CHOICE3:
+            {
+                for(unsigned int i = 0; i < (STUDENT_TABLE_CAPACITY - StudentTable.entries_available); i++)
+                {
+                    cout << "Student " << StudentTable.students[i].ID << ":\n";
+                    cout << "Name: " << StudentTable.students[i].Name << "\n";
+                    cout << "Age: " << StudentTable.students[i].Age << "\n";
+                    cout << "Grade: " << StudentTable.students[i].Grade << "\n";
+                    cout << "-------------------------------------\n";
+                }
+            }
+            break;
+            case CHOICE4:
+            {
+                cout << "Goodbye!" << endl;
+                exit(EXIT_SUCCESS);
+            }
+            break;
+            default:
+                cout << "Invalid choice" << endl;
+        }
+    }
+}
+
+void app_main(void)
+{
+    string choice;
+    int ch = 0;
+    StudentTable.entries_available = STUDENT_TABLE_CAPACITY;    
+    while(true)
+    {
+        display_menu();
+        while(!(cin >> choice));
+        if(choice.empty() == true || cin.flags() == false)
+        {
+            continue;
+        }
+        if(StudentTable.entries_available > 0)
+        {
+            if(choice.find_first_not_of("1234") && choice.length() == 1)
+            {
+                ch = stoi(choice);
+            }
+            else
+            {
+                cout << "Invalid choice. Please try again!" << endl;
+                continue;
+            }
+        }
+        else
+        {
+            if(choice.find_first_not_of("34") && choice.length() == 1)
+            {
+                ch = stoi(choice);
+            }
+            else
+            {
+                cout << "Invalid choice. Please try again!" << endl;
+                continue;
+            }            
+        }
+
+        execute_choices(ch);
+    }
+}
+
+int main(void)
+{
+    app_main();
+    return 0;
+}
+
 
 
 #elif (Q2 == 1)
