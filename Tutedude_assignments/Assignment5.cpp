@@ -1,5 +1,5 @@
-#define Q1                      (0)
-#define Q2                      (1)
+#define Q1                      (1)
+#define Q2                      (0)
 #define Q3                      (0)
 
 #include <iostream>
@@ -9,6 +9,55 @@
 using namespace std;
 
 #if (Q1 == 1)
+
+#define STUDENT_TABLE_CAPACITY      (10)
+
+typedef struct
+{
+    unsigned int ID;
+    string Name;
+    unsigned int Age;
+    unsigned char Grade;
+}tStudentDetails;
+
+typedef struct
+{
+    tStudentDetails students[STUDENT_TABLE_CAPACITY];
+    unsigned int entries_available;
+}tStudentDetailsTable;
+
+tStudentDetailsTable StudentTable = {
+    .students = {0},
+    .entries_available = STUDENT_TABLE_CAPACITY
+};
+
+/* Problem formulation:
+    * Display a menu for the user, with options: 1 (enter student details), 2 (enquire how many more entries can be made), 
+    3 (display the table), 4 (exit)
+    * Choice 1: user enters the details. After the details are verified for syntax, the details will be filled in the table.
+    * Choice 2: user asks for how many more entries can be made to the table.
+    * Choice 3: user asks to display the table in current state.
+    * Choice 4: exit the application
+    * Constraints:
+    * Choice 1: user should be informed how many entries available. If no space available, reject the user request. 
+    * More conveniently, when the capacity is reached, do not display Choice 1 and 2 anymore. Rather display, table is full.
+    * Advanced design: Let the user drop one or more entries specified by the ID numbers, to create vacancies.
+    * Choice 2: should return how many more new entries can be made. If 0, this choice must not be displayed to prevent abuse.
+    * Choice 3: print the details in vertical order starting from 1st student, ending till the last details filled, not the entire table.
+    * Choice 4: display on-screen what the user needs to enter to exit from the app.
+    
+   Test cases:
+    * Choice 1:
+        - user enters non-numeric characters for age, id. app should reject and restart the app
+
+
+*/
+
+void fill_student_details(unsigned int id, string name, unsigned int age, unsigned char grade)
+{
+
+}
+
 int sum_of_numbers(int, int);
 double sum_of_numbers(double, double);
 int sum_of_numbers(int, int, int);
