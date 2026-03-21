@@ -22,10 +22,6 @@ class PlayWithNumber
             {
                 return 1U;
             }
-            else if(num < 0)
-            {
-                num *= -1;
-            }
             for(int i = 1; i <= num; i++)
             {
                 factorial *= i;
